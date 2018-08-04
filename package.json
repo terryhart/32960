@@ -1,0 +1,62 @@
+{
+  "name": "@36node/32960",
+  "version": "0.0.0",
+  "description": "A module for parsing 32960 protocol.",
+  "repository": {
+    "url": "36node/32960",
+    "type": "git"
+  },
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
+  "files": [
+    "bin",
+    "dist"
+  ],
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "rm -rf dist && babel ./src -d ./dist --ignore test.js",
+    "format": "prettier --trailing-comma es5 --single-quote --write",
+    "lint": "eslint src",
+    "prepublishOnly": "npm run build",
+    "release": "standard-version && git push --follow-tags origin master",
+    "test:cov": "jest --coverage && npm run lint",
+    "test": "npm run lint && jest"
+  },
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -e $GIT_PARAMS",
+      "pre-commit": "lint-staged",
+      "pre-push": "npm test"
+    }
+  },
+  "jest": {
+    "testEnvironment": "node"
+  },
+  "lint-staged": {
+    "*.js": [
+      "npm run format",
+      "git add"
+    ],
+    "yarn.lock": [
+      "git rm --cached"
+    ]
+  },
+  "devDependencies": {
+    "@36node/babel": "*",
+    "@36node/eslint-config": "0.0.2",
+    "@commitlint/cli": "6.1.0",
+    "@commitlint/config-conventional": "6.1.0",
+    "husky": "0.14.3",
+    "jest-cli": "23.3.0",
+    "lint-staged": "7.2.0",
+    "prettier": "1.13.7",
+    "standard-version": "4.4.0"
+  }
+}
