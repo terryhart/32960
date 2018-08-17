@@ -16,6 +16,7 @@
   ],
   "main": "dist/index.js",
   "scripts": {
+    "start": "nodemon src/index.js --watch src --exec 'babel-node'",
     "build": "rm -rf dist && babel ./src -d ./dist --ignore test.js",
     "format": "prettier --trailing-comma es5 --single-quote --write",
     "lint": "eslint src",
@@ -58,5 +59,9 @@
     "lint-staged": "7.2.0",
     "prettier": "1.13.7",
     "standard-version": "4.4.0"
+  },
+  "dependencies": {
+    "@36node/telegram": "file:../telegram",
+    "nodemon": "1.18.3"
   }
 }
