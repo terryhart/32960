@@ -29,7 +29,7 @@ const assertFn = {
         return num > low && num < high;
       }
     };
-  }
+  },
 };
 
 const formatterFn = {
@@ -54,7 +54,7 @@ const formatterFn = {
           return (val + offset) * res;
       }
     };
-  }
+  },
 };
 
 const timeParser = new Telegram()

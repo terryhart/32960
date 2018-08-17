@@ -12,7 +12,7 @@ const packages = {
   "03": MessageReport,
   "04": VehicleLogout,
   "05": PlatformLogin,
-  "06": PlatformLogout
+  "06": PlatformLogout,
 };
 
 // packages.basicInfo = BasicInfo;

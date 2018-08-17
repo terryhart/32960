@@ -15,6 +15,6 @@ test("Parse vehicleLogin data package.", () => {
     sn: 31,
     iccid: "89860616020046379629",
     subSysNm: 1,
-    subSysNmLen: 0
+    subSysNmLen: 0,
   });
 });

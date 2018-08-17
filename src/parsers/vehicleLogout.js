@@ -8,7 +8,7 @@ export default class VehicleLogout extends Base {
       .endianess("big")
       .nest("logoutAt", {
         type: timeParser,
-        formatter: formatterFn.formatTime
+        formatter: formatterFn.formatTime,
       })
       .uint16("sn");
   }

@@ -8,7 +8,7 @@ export default class VehicleLogin extends Base {
       .endianess("big")
       .nest("loginAt", {
         type: timeParser,
-        formatter: formatterFn.formatTime
+        formatter: formatterFn.formatTime,
       })
       .uint16("sn", { assert: assertFn.range(1, 65531) })
       .string("iccid", { length: 20, stripNull: true })

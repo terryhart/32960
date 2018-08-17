@@ -15,7 +15,7 @@ export default class PlatformLogin extends Base {
       .endianess("big")
       .nest("loginAt", {
         type: timeParser,
-        formatter: formatterFn.formatTime
+        formatter: formatterFn.formatTime,
       })
       .uint16("sn")
       .string("userName", { length: 12, stripNull: true })

@@ -6,7 +6,7 @@ export default class MessageReport extends Base {
   get parser() {
     return new Telegram().endianess("big").nest("reportAt", {
       type: timeParser,
-      formatter: formatterFn.formatTime
+      formatter: formatterFn.formatTime,
     });
   }
 
@@ -61,7 +61,7 @@ class Vehicle extends Base {
               case 0xff:
                 return "INVALID"; // 无效
             }
-          }
+          },
         })
         // 充电状态
         .uint8("chargStatus", {
@@ -80,7 +80,7 @@ class Vehicle extends Base {
               case 0xff:
                 return "INVALID"; // 无效
             }
-          }
+          },
         })
         // 运行模式
         .uint8("mode", {
@@ -97,7 +97,7 @@ class Vehicle extends Base {
               case 0xff:
                 return "INVALID"; // 无效
             }
-          }
+          },
         })
         .uint16("speed", { formatter: formatterFn.genOpt(0.1, 0, 0xfffe, 0xffff) }) // 车速
         .uint32("mileage", { formatter: formatterFn.genOpt(0.1, 0, 0xfffffffe, 0xffffffff) }) // 累计里程
@@ -117,10 +117,10 @@ class Vehicle extends Base {
               case 0xff:
                 return "INVALID"; // 0xFF 无效
             }
-          }
+          },
         })
         .uint8("shift", {
-          formatter: val => val & 0x0f
+          formatter: val => val & 0x0f,
         }) // 档位
         .uint16("resistance") // 绝缘电阻
         .uint8("aptv", { formatter: formatterFn.genOpt(0.01) }) // 加速踏板行程值
@@ -159,14 +159,14 @@ class Motor extends Base {
                 case 0xff:
                   return "INVALID"; // 无效
               }
-            }
+            },
           })
           .uint8("controlTemp", { formatter: formatterFn.genOpt(1, -40) }) // 驱动电机控制器温度
           .uint16("speed", { formatter: formatterFn.genOpt(1, -20000, 0xfffe, 0xffff) }) // 驱动电机转速
           .uint16("torque", { formatter: formatterFn.genOpt(0.1, -20000, 0xfffe, 0xffff) }) // 驱动电机转矩 (-2000 ~ 4553.1)
           .uint8("temp", { formatter: formatterFn.genOpt(1, -40) }) // 驱动电机温度
           .uint16("voltage", { formatter: formatterFn.genOpt(0.1, 0, 0xfffe, 0xffff) }) // 电机控制器输入电压
-          .uint16("current", { formatter: formatterFn.genOpt(0.1, -10000, 0xfffe, 0xffff) }) // 电机控制器直流母线电流
+          .uint16("current", { formatter: formatterFn.genOpt(0.1, -10000, 0xfffe, 0xffff) }), // 电机控制器直流母线电流
       });
   }
 }
@@ -188,7 +188,7 @@ class Fuelcell extends Base {
         .array("ntcs", {
           type: "int8",
           length: "probeCount",
-          formatter: arr => arr.map(val => val - 40)
+          formatter: arr => arr.map(val => val - 40),
         })
         .uint16("maxNtc", { formatter: formatterFn.genOpt(0.1, -400, 0xfffe, 0xffff) }) // 氢系统中最高温度
         .uint8("maxNtcNo", { formatter: formatterFn.genOpt() }) // 氢系统中最高温度探针代号
@@ -198,7 +198,7 @@ class Fuelcell extends Base {
         .uint16("maxVoltageOfh", {
           formatter: val => {
             return val * 0.1;
-          }
+          },
         })
         .uint8("maxVoltageOfhNo", { formatter: formatterFn.genOpt() }) // 氢气最高压力传感器代号
         // 高压DC/DC状态
@@ -214,7 +214,7 @@ class Fuelcell extends Base {
               case 0xff:
                 return "INVALID"; // 0xFF 无效
             }
-          }
+          },
         })
     );
   }
@@ -242,7 +242,7 @@ class Engine extends Base {
               case 0xff:
                 return "INVALID"; // 0xFF 无效
             }
-          }
+          },
         })
         .uint16("csSpeed", { formatter: formatterFn.genOpt(1, 0, 0xfffe, 0xffff) }) // 曲轴转速
         .uint16("fcRate", { formatter: formatterFn.genOpt(0.01, 0, 0xfffe, 0xffff) })
@@ -328,28 +328,28 @@ class Alarm extends Base {
         // 通用报警标志
         .nest("uas", {
           type: uasParser,
-          lengthInBytes: 4
+          lengthInBytes: 4,
         })
         // 可充电储能装置故障总数N1
         .uint8("ressLen", { formatter: formatterFn.genOpt() })
         .array("ressList", {
           type: errListParser,
-          length: "ressLen"
+          length: "ressLen",
         }) // 可充电储能装置故障代码列表
         .uint8("mortorLen", { formatter: formatterFn.genOpt() }) // 驱动电机故障总数N2
         .array("mortorList", {
           type: errListParser,
-          length: "mortorLen"
+          length: "mortorLen",
         }) // 驱动电机故障代码列表
         .uint8("engineLen", { formatter: formatterFn.genOpt() }) // 发动机故障总数N3
         .array("engineList", {
           type: errListParser,
-          length: "engineLen"
+          length: "engineLen",
         }) // 发动机故障代码列表
         .uint8("otherLen", { formatter: formatterFn.genOpt() }) // 其他故障总数N4
         .array("otherList", {
           type: errListParser,
-          length: "otherLen"
+          length: "otherLen",
         })
     );
   }
@@ -380,8 +380,8 @@ class RessVoltage extends Base {
           .array("batteryVols", {
             type: "uint16be",
             length: "frameBatteryCount",
-            formatter: arr => arr.map(val => val * 0.001)
-          })
+            formatter: arr => arr.map(val => val * 0.001),
+          }),
       });
   }
 }
@@ -403,8 +403,8 @@ class RessTemperature extends Base {
           .array("temps", {
             type: "uint8",
             length: "probeCount",
-            formatter: arr => arr.map(val => val - 40)
-          })
+            formatter: arr => arr.map(val => val - 40),
+          }),
       });
   }
 }
@@ -463,7 +463,7 @@ class CustomExt extends Base {
               case 0xff:
                 return "INVALID"; // 无效
             }
-          }
+          },
         })
         .uint8("airTemp", { formatter: formatterFn.genOpt(1, -40) }) // 空调设定温度
         .uint8("insideTemp", { formatter: formatterFn.genOpt(1, -40) }) // 车厢内实际温度
@@ -532,12 +532,12 @@ class TenSeconds extends Base {
               default:
                 return val * 0.01;
             }
-          }
+          },
         })
         .skip(1)
         .uint16("speed", { formatter: formatterFn.genOpt(0.1, 0, 0xfffe, 0xffff) }) // 车速
         .skip(1)
-        .uint16("totalCurrent", { formatter: formatterFn.genOpt(1, -1000, 0xfffe, 0xffff) }) // 总电流
+        .uint16("totalCurrent", { formatter: formatterFn.genOpt(1, -1000, 0xfffe, 0xffff) }), // 总电流
     });
   }
 }
@@ -553,5 +553,5 @@ const info = {
   "08": RessVoltage,
   "09": RessTemperature,
   "80": CustomExt,
-  "81": TenSeconds
+  "81": TenSeconds,
 };
