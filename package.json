@@ -16,7 +16,7 @@
   ],
   "main": "dist/index.js",
   "scripts": {
-    "start": "nodemon src/index.js --watch src --exec 'babel-node'",
+    "start": "nodemon examples/currentMessageReport.js --watch src --watch examples --exec 'babel-node'",
     "build": "rm -rf dist && babel ./src -d ./dist --ignore test.js",
     "format": "prettier --trailing-comma es5 --single-quote --write",
     "lint": "eslint src",
