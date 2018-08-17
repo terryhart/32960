@@ -1,4 +1,4 @@
-import Telegram from "telegram";
+import Telegram from "@36node/telegram";
 import Base from "./base";
 import { assertFn, formatterFn, timeParser } from "./utils";
 

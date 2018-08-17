@@ -1,4 +1,4 @@
-import Telegram from "telegram";
+import Telegram from "@36node/telegram";
 
 const assertFn = {
   range: (low, high, exceptVals = []) => {
