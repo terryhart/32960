@@ -58,7 +58,7 @@
     "standard-version": "4.4.0"
   },
   "dependencies": {
-    "@36node/telegram": "0.1.0",
+    "@36node/telegram": "0.2.0",
     "nodemon": "1.18.3"
   }
 }

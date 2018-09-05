@@ -28,11 +28,12 @@
     eslint-plugin-prettier "2.6.2"
     eslint-plugin-react "7.10.0"
 
-"@36node/telegram@0.1.0":
-  version "0.1.0"
-  resolved "https://registry.yarnpkg.com/@36node/telegram/-/telegram-0.1.0.tgz#47acc56fa823e4da3c9b8d226bbe1616c382ea64"
+"@36node/telegram@0.2.0":
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/@36node/telegram/-/telegram-0.2.0.tgz#bbbdab04461b70ba1542188b64932dbeb088de51"
   dependencies:
     commander "2.16.0"
+    fs "0.0.1-security"
 
 "@babel/code-frame@7.0.0-beta.44":
   version "7.0.0-beta.44"
@@ -2566,6 +2567,10 @@ fs-readdir-recursive@^1.0.0:
 fs.realpath@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/fs.realpath/-/fs.realpath-1.0.0.tgz#1504ad2523158caa40db4a2787cb01411994ea4f"
+
+fs@0.0.1-security:
+  version "0.0.1-security"
+  resolved "https://registry.yarnpkg.com/fs/-/fs-0.0.1-security.tgz#8a7bd37186b6dddf3813f23858b57ecaaf5e41d4"
 
 fsevents@^1.0.0, fsevents@^1.2.2, fsevents@^1.2.3:
   version "1.2.4"
