@@ -1,8 +1,9 @@
-import packages from "./parsers";
+import parser from "./parsers";
 
 export default class Protocol32960 {
-  constructor() {
-    this.buffer = null;
+  constructor(buffer) {
+    this.buffer = buffer;
+    this.result = this.parse();
   }
 
   checkData() {
@@ -31,32 +32,13 @@ export default class Protocol32960 {
     }
   }
 
-  sliceBuffer(start) {
-    this.buffer = this.buffer.slice(start);
-  }
-
-  getCommandId() {
-    return this.headerResult.commandIDHex;
-  }
-
-  parse(buffer) {
-    this.buffer = buffer;
+  parse() {
     this.checkData();
-    this.parseHeader();
-    const id = this.getCommandId();
-    this.parseBody(id);
-    return { ...this.headerResult, ...this.bodyResult };
+    const content = new parser(this.buffer);
+    return content.toJSON;
   }
 
-  parseHeader() {
-    const header = new packages.basicInfo();
-    this.headerResult = header.parse(this.buffer);
-    this.sliceBuffer(header.len);
-  }
-
-  parseBody(symbol) {
-    const body = new packages[symbol]();
-    this.bodyResult = body.parse(this.buffer);
-    this.sliceBuffer(body.len);
+  get toJSON() {
+    return this.result;
   }
 }
