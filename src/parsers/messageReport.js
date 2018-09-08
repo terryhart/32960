@@ -288,6 +288,136 @@ const ressTemperature = new Telegram()
       }),
   });
 
+const customExt = new Telegram()
+  .endianess("big")
+  .uint16("dataLen") // 数据长度
+  .uint8("pressure1", { formatter: formatterFn.genOpt(4) }) // 气压1
+  .uint8("pressure2", { formatter: formatterFn.genOpt(4) }) // 气压2
+  .uint8("batteryVoltage", { formatter: formatterFn.genOpt(0.5) }) // 蓄电池电压
+  .uint16("dcov", { formatter: formatterFn.genOpt(0.1, -10000) }) // // DCDC输出电压
+  .uint16("dcoc", { formatter: formatterFn.genOpt(0.1, -10000, 0xfffe, 0xffff) }) // DCDC输出电流
+  .uint8("dcTemp", { formatter: formatterFn.genOpt(1, -40) }) // DCDC散热器温度
+  .uint8("acTemp", { formatter: formatterFn.genOpt(1, -40) }) // DCAC散热器温度
+  .uint8("lftp", { formatter: formatterFn.genOpt(4) }) // 左前轮胎压力
+  .uint8("lftt", { formatter: formatterFn.genOpt(1, -40) }) // 左前轮胎温度
+  .uint8("rftp", { formatter: formatterFn.genOpt(4, 0) }) // 右前轮胎压力
+  .uint8("rftt", { formatter: formatterFn.genOpt(1, -40) }) // 右前轮胎温度
+  .uint8("lr1tp", { formatter: formatterFn.genOpt(4) }) // 左后 1 轮胎压力
+  .uint8("lr1tt", { formatter: formatterFn.genOpt(1, -40) }) // 左后 1 轮胎温度
+  .uint8("lr2tp", { formatter: formatterFn.genOpt(4) }) // 左后 2 轮胎压力
+  .uint8("lr2tt", { formatter: formatterFn.genOpt(1, -40) }) // 左后 2 轮胎温度
+  .uint8("rr1tp", { formatter: formatterFn.genOpt(4) }) // 右后 1 轮胎压力
+  .uint8("rr1tt", { formatter: formatterFn.genOpt(1, -40) }) // 右后 1 轮胎温度
+  .uint8("rr2tp", { formatter: formatterFn.genOpt(4) }) // 右后 2 轮胎压力
+  .uint8("rr2tt", { formatter: formatterFn.genOpt(1, -40) }) // 右后 2 轮胎温度
+  .uint16("cv", { formatter: formatterFn.genOpt(0.1, 0, 0xfffe, 0xffff) }) // 充电电压
+  .uint16("rc", { formatter: formatterFn.genOpt(0.1, -10000, 0xfffe, 0xffff) }) // 充电电流
+  .uint16("cp", { formatter: formatterFn.genOpt(0.1, 0, 0xfffe, 0xffff) }) // 充电电量
+  .uint32("totalCharge", { formatter: formatterFn.genOpt(0.1, 0, 0xfffffffe, 0xffffffff) }) // 累积充电电量
+  .uint32("totalDischarge", { formatter: formatterFn.genOpt(0.1, 0, 0xfffffffe, 0xffffffff) }) // 累积放电电量
+  .uint16("instantPower", { formatter: formatterFn.genOpt(0.1, 0, 0xfffe, 0xffff) }) // 瞬时电耗
+  .uint16("bpiRes", { formatter: formatterFn.genOpt(1, 0, 0xfffe, 0xffff) }) // 电池正绝缘电阻
+  .uint16("bniRes", { formatter: formatterFn.genOpt(1, 0, 0xfffe, 0xffff) }) // 电池负绝缘电阻
+  .uint8("apTemp", { formatter: formatterFn.genOpt(1, -40) }) // 气泵扇热器温度
+  .uint8("motorContTemp", { formatter: formatterFn.genOpt(1, -40) }) // 电机控制器温度
+  // 空调开启模式
+  .uint8("airMode", {
+    formatter: val => {
+      switch (val) {
+        case 0:
+          return "OFF"; // 关闭
+        case 1:
+          return "WIND"; // 进风
+        case 2:
+          return "HEATING"; // 制热
+        case 3:
+          return "REFRIGERATION"; // 制冷
+        case 0xff:
+          return "INVALID"; // 无效
+      }
+    },
+  })
+  .uint8("airTemp", { formatter: formatterFn.genOpt(1, -40) }) // 空调设定温度
+  .uint8("insideTemp", { formatter: formatterFn.genOpt(1, -40) }) // 车厢内实际温度
+  .uint8("outsideTemp", { formatter: formatterFn.genOpt(1, -40) }) // 车外温度
+  .bit2("middleDoorStatus", {
+    formatter: val => {
+      switch (val) {
+        case 0:
+          return "NOSIGNAL"; // 无信号
+        case 1:
+          return "ON"; // 开
+        case 2:
+          return "ABNORMAL"; // 异常
+      }
+      return "INVALID"; // 无效
+    },
+  })
+  .bit2("frontDoorStatus", {
+    formatter: val => {
+      switch (val) {
+        case 0:
+          return "NOSIGNAL"; // 无信号
+        case 1:
+          return "ON"; // 开
+        case 2:
+          return "ABNORMAL"; // 异常
+      }
+      return "INVALID"; // 无效
+    },
+  })
+  .bit2("handbrakeStatus", {
+    formatter: val => {
+      switch (val) {
+        case 0:
+          return "NOSIGNAL"; // 无信号
+        case 1:
+          return "ON"; // 开
+        case 2:
+          return "ABNORMAL"; // 异常
+      }
+      return "INVALID"; // 无效
+    },
+  })
+  .bit2("keyPosition", {
+    formatter: val => {
+      switch (val) {
+        case 0:
+          return "OFF"; //
+        case 1:
+          return "ACC"; //
+        case 2:
+          return "ON"; //
+      }
+      return "START"; //
+    },
+  });
+
+const tenSeconds = new Telegram().endianess("big").array("datas", {
+  length: 10,
+  type: new Telegram()
+    .skip(1)
+    .uint8("accPedal", { formatter: formatterFn.genOpt(0.01) }) // 加速踏板行程
+    .skip(1)
+    // 制动踏板
+    .uint8("brake", {
+      formatter: val => {
+        switch (val) {
+          case 0:
+            return "OFF";
+          case 101:
+            return "ON";
+          default:
+            return val * 0.01;
+        }
+      },
+    })
+    .skip(1)
+    .uint16("speed", { formatter: formatterFn.genOpt(0.1, 0, 0xfffe, 0xffff) }) // 车速
+    .skip(1)
+    .uint16("totalCurrent", { formatter: formatterFn.genOpt(1, -1000, 0xfffe, 0xffff) }), // 总电流
+});
+
 const info = {
   "01": "vehicle",
   "02": "motor",
@@ -312,8 +442,8 @@ const infoPackages = {
   alarm: alarm,
   ressVoltage: ressVoltage,
   ressTemperature: ressTemperature,
-  // "customExt": customExt,
-  // "tenSeconds": tenSeconds,
+  customExt: customExt,
+  tenSeconds: tenSeconds,
 };
 
 const switchName = json => {
