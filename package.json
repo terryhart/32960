@@ -16,7 +16,7 @@
   ],
   "main": "dist/index.js",
   "scripts": {
-    "build": "sketch build",
+    "build": "sketch build -u p32960",
     "format": "prettier --trailing-comma es5 --write",
     "lint": "eslint src",
     "release": "standard-version && git push --follow-tags origin master",
