@@ -1,5 +1,5 @@
 {
-  "name": "@36node/32960",
+  "name": "@36node/protocol-32960",
   "version": "0.1.2",
   "description": "A module for parsing 32960 protocol.",
   "repository": {
@@ -16,7 +16,7 @@
   ],
   "main": "dist/index.js",
   "scripts": {
-    "build": "sketch build -u p32960",
+    "build": "sketch build",
     "format": "prettier --trailing-comma es5 --write",
     "lint": "eslint src",
     "release": "standard-version && git push --follow-tags origin master",
