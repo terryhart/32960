@@ -15,6 +15,8 @@
     "dist"
   ],
   "main": "dist/index.js",
+  "umd:main": "dist/index.umd.js",
+  "module": "dist/index.mjs",
   "scripts": {
     "build": "sketch build",
     "format": "prettier --trailing-comma es5 --write",
