@@ -1,0 +1,80 @@
+version: 2
+
+defaults: &defaults
+  working_directory: ~/repo
+  docker:
+    - image: circleci/node:latest
+
+jobs:
+
+  build:
+    <<: *defaults
+    steps:
+      - checkout
+      - restore_cache:
+          key: dependency-cache-{{ checksum "yarn.lock" }}
+      - run:
+          name: Install Dependences
+          command: yarn install
+      - run:
+          name: Build Package
+          command: yarn build
+      - save_cache:
+          key: dependency-cache-{{ checksum "yarn.lock" }}
+          paths:
+            - ./node_modules
+      - persist_to_workspace:
+          root: ~/repo
+          paths:
+            - .
+
+  test:
+    <<: *defaults
+    steps:
+      - attach_workspace:
+          at: ~/repo
+      - run:
+          name: Eslint
+          command: yarn lint
+      - run:
+          name: Unit Test
+          command: yarn test --coverage
+      - run:
+          name: Upload Coverage
+          command: bash <(curl -s https://codecov.io/bash)
+
+  release:
+    <<: *defaults
+    steps:
+      - attach_workspace:
+          at: ~/repo
+      - run:
+          name: Authenticate With Registry
+          command: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ~/repo/.npmrc
+      - run:
+          name: Publish Package
+          command: npm publish
+
+workflows:
+  version: 2
+  main:
+    jobs:
+      - build:
+          filters:  # required since `release` has tag filters AND requires `build`
+            tags:
+              only: /.*/
+      - test:
+          requires:
+            - build
+          filters:  # required since `release` has tag filters AND requires `test`
+            tags:
+              only: /.*/
+      - release:
+          context: production
+          requires:
+            - test
+          filters:
+            tags:
+              only: /v.*/
+            branches:
+              ignore: /.*/

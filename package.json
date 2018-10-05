@@ -16,14 +16,11 @@
   ],
   "main": "dist/index.js",
   "scripts": {
-    "start": "nodemon examples/currentMessageReport.js --watch src --watch examples --exec 'babel-node'",
-    "build": "rm -rf dist && babel ./src -d ./dist --ignore test.js",
+    "build": "sketch build",
     "format": "prettier --trailing-comma es5 --write",
     "lint": "eslint src",
-    "prepublishOnly": "npm run build",
     "release": "standard-version && git push --follow-tags origin master",
-    "test:cov": "jest --coverage && npm run lint",
-    "test": "npm run lint && jest --silent"
+    "test": "jest --silent"
   },
   "commitlint": {
     "extends": [
@@ -34,7 +31,7 @@
     "hooks": {
       "commit-msg": "commitlint -e $GIT_PARAMS",
       "pre-commit": "lint-staged",
-      "pre-push": "npm test"
+      "pre-push": "yarn lint && yarn test"
     }
   },
   "jest": {
@@ -42,23 +39,24 @@
   },
   "lint-staged": {
     "*.js": [
-      "npm run format",
+      "yarn format",
       "git add"
     ]
   },
   "devDependencies": {
     "@36node/babel": "*",
-    "@36node/eslint-config": "0.0.2",
-    "@commitlint/cli": "6.1.0",
-    "@commitlint/config-conventional": "6.1.0",
-    "husky": "1.0.0-rc.13",
-    "jest": "23.4.2",
-    "lint-staged": "7.2.0",
-    "prettier": "1.13.7",
-    "standard-version": "4.4.0"
+    "@36node/eslint-config": "*",
+    "@36node/sketch-cli": "^0.4.0",
+    "@commitlint/cli": "^6.1.0",
+    "@commitlint/config-conventional": "^6.1.0",
+    "husky": "^1.0.0-rc.13",
+    "jest": "^23.4.2",
+    "lint-staged": "^7.2.0",
+    "prettier": "^1.13.7",
+    "standard-version": "^4.4.0"
   },
   "dependencies": {
-    "@36node/telegram": "0.3.0",
-    "nodemon": "1.18.3"
+    "@36node/telegram": "^0.3.4",
+    "decimal.js": "^10.0.1"
   }
 }
