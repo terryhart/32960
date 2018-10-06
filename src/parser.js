@@ -46,12 +46,16 @@ function toNumber(res = 1, offset = 0, abnormal = 0xfe, invalid = 0xff) {
   };
 }
 
-function toEnum(...candidates) {
+function toEnum0(...candidates) {
   return val => {
     if (val === 0xfe) return "ABNORMAL";
     if (val === 0xff) return undefined;
     return candidates[val];
   };
+}
+
+function toEnum1(...candidates) {
+  return toEnum0(undefined, ...candidates);
 }
 
 function toShift() {
@@ -92,15 +96,15 @@ export const info = {};
 
 info["vehicle"] = new Telegram()
   .endianess("big")
-  .uint8("status", { formatter: toEnum(undefined, ...cs.VEHICLE_STATUS) }) // 车辆状态
-  .uint8("chargeStatus", { formatter: toEnum(undefined, ...cs.CHARGE_STATUS) }) // 充电状态
-  .uint8("mode", { formatter: toEnum(undefined, ...cs.VEHICLE_MODE) }) // 能源类型
+  .uint8("status", { formatter: toEnum1(...Object.keys(cs.VEHICLE_STATUS)) }) // 车辆状态
+  .uint8("chargeStatus", { formatter: toEnum1(...Object.keys(cs.CHARGE_STATUS)) }) // 充电状态
+  .uint8("mode", { formatter: toEnum1(...Object.keys(cs.VEHICLE_MODE)) }) // 能源类型
   .uint16("speed", { formatter: toNumber(0.1, 0, 0xfffe, 0xffff) }) // 车速
   .uint32("mileage", { formatter: toNumber(0.1, 0, 0xfffffffe, 0xffffffff) }) // 累计里程
   .uint16("voltage", { formatter: toNumber(0.1, 0, 0xfffe, 0xffff) }) // 总电压
   .uint16("current", { formatter: toNumber(0.1, -10000, 0xfffe, 0xffff) }) // 总电流
   .uint8("soc", { formatter: toNumber(0.01) }) // SOC
-  .uint8("dcStatus", { formatter: toEnum(undefined, ...cs.DC_STATUS) }) // DC-DC 状态
+  .uint8("dcStatus", { formatter: toEnum1(...Object.keys(cs.DC_STATUS)) }) // DC-DC 状态
   .uint8("shift", { formatter: toShift() }) // 档位
   .uint16("resistance") // 绝缘电阻
   .uint8("aptv", { formatter: toNumber(0.01) }) // 加速踏板行程值
@@ -113,7 +117,7 @@ info["motor"] = new Telegram()
     length: "count",
     type: new Telegram()
       .uint8("no", { assert: assertRange(1, 253) }) // 驱动电机序号
-      .uint8("status", { formatter: toEnum(undefined, ...cs.MOTOR_STATUS) }) // 驱动电机状态
+      .uint8("status", { formatter: toEnum1(...Object.keys(cs.MOTOR_STATUS)) }) // 驱动电机状态
       .uint8("controlTemp", { formatter: toNumber(1, -40) }) // 驱动电机控制器温度
       .uint16("speed", { formatter: toNumber(1, -20000, 0xfffe, 0xffff) }) // 驱动电机转速
       .uint16("torque", { formatter: toNumber(0.1, -20000, 0xfffe, 0xffff) }) // 驱动电机转矩 (-2000 ~ 4553.1)
@@ -139,11 +143,11 @@ info["fuelcell"] = new Telegram()
   .uint8("hcOfhNo", { formatter: toNumber() }) // 氢气最高浓度传感器代号 Highest concentration of hydrogen
   .uint16("maxVoltageOfh", { formatter: toNumber(0.1) }) // 氢气最高压力
   .uint8("maxVoltageOfhNo", { formatter: toNumber() }) // 氢气最高压力传感器代号
-  .uint8("dc", { formatter: toEnum(undefined, ...cs.DC_STATUS) }); // 高压DC/DC状态
+  .uint8("dc", { formatter: toEnum1(...Object.keys(cs.DC_STATUS)) }); // 高压DC/DC状态
 
 info["engine"] = new Telegram()
   .endianess("big")
-  .uint8("state", { formatter: toEnum(undefined, ...cs.ENGINE_STATUS) }) // 发动机状态
+  .uint8("state", { formatter: toEnum1(...Object.keys(cs.ENGINE_STATUS)) }) // 发动机状态
   .uint16("csSpeed", { formatter: toNumber(1, 0, 0xfffe, 0xffff) }) // 曲轴转速
   .uint16("fcRate", { formatter: toNumber(0.01, 0, 0xfffe, 0xffff) }); // 燃料消耗率
 
@@ -277,14 +281,14 @@ info["customExt"] = new Telegram()
   .uint16("bniRes", { formatter: toNumber(1, 0, 0xfffe, 0xffff) }) // 电池负绝缘电阻
   .uint8("apTemp", { formatter: toNumber(1, -40) }) // 气泵扇热器温度
   .uint8("motorContTemp", { formatter: toNumber(1, -40) }) // 电机控制器温度
-  .uint8("airMode", { formatter: toEnum(...cs.AIR_MODE) }) // 空调开启模式
+  .uint8("airMode", { formatter: toEnum0(...Object.keys(cs.AIR_MODE)) }) // 空调开启模式
   .uint8("airTemp", { formatter: toNumber(1, -40) }) // 空调设定温度
   .uint8("insideTemp", { formatter: toNumber(1, -40) }) // 车厢内实际温度
   .uint8("outsideTemp", { formatter: toNumber(1, -40) }) // 车外温度
-  .bit2("middleDoorStatus", { formatter: toEnum(...cs.DOOR_STATUS) }) // 中门
-  .bit2("frontDoorStatus", { formatter: toEnum(...cs.DOOR_STATUS) }) // 前门
-  .bit2("handbrakeStatus", { formatter: toEnum(...cs.HANDBRAKE_STATUS) }) // 手刹
-  .bit2("keyPosition", { formatter: toEnum(...cs.KEY_POSITION) }); // 钥匙
+  .bit2("middleDoorStatus", { formatter: toEnum0(...Object.keys(cs.DOOR_STATUS)) }) // 中门
+  .bit2("frontDoorStatus", { formatter: toEnum0(...Object.keys(cs.DOOR_STATUS)) }) // 前门
+  .bit2("handbrakeStatus", { formatter: toEnum0(...Object.keys(cs.HANDBRAKE_STATUS)) }) // 手刹
+  .bit2("keyPosition", { formatter: toEnum0(...Object.keys(cs.KEY_POSITION)) }); // 钥匙
 
 info["tenSeconds"] = new Telegram().endianess("big").array("datas", {
   length: 10,
@@ -340,8 +344,8 @@ export const platformLogin = new Telegram()
     formatter: toDate(),
   })
   .uint16("sn")
-  .string("userName", { length: 12, stripNull: true })
-  .string("pass", { length: 20, stripNull: true })
+  .string("username", { length: 12, stripNull: true })
+  .string("passwrod", { length: 20, stripNull: true })
   .skip(1); // .string("encryptRule", { length: 1, encoding: "hex" });
 
 export const logout = new Telegram()
@@ -385,28 +389,35 @@ export const report = new Telegram()
 /**
  * 整个包
  */
+function getBodyParser(data) {
+  switch (data.command) {
+    case cs.COMMAND.VEHICLE_LOGIN:
+      return vehicleLogin;
+    case cs.COMMAND.REALTIME_REPORT:
+    case cs.COMMAND.REISSUE_REPORT:
+      return report;
+    case cs.COMMAND.VEHICLE_LOGOUT:
+    case cs.COMMAND.PLATFORM_LOGOUT:
+      return logout;
+    case cs.COMMAND.PLATFORM_LOGIN:
+      return platformLogin;
+    default:
+      return new Telegram(); // TODO: telegram nest 应支持空
+  }
+}
+
+function flagFormatter(val) {
+  if (val === 0xfe) return cs.FLAG.COMMAND; // 非常特殊的
+  return toEnum1(...Object.keys(cs.FLAG))(val);
+}
 
 export default new Telegram()
   .endianess("big")
   .skip(2)
-  .string("command", { length: 1, encoding: "hex" })
-  .string("flag", { length: 1, encoding: "hex" })
+  .uint8("command", { formatter: toEnum1(...Object.keys(cs.COMMAND)) })
+  .uint8("flag", { formatter: flagFormatter })
   .string("vin", { length: 17, stripNull: true })
-  .string("encrypt", { length: 1, encoding: "hex" })
-  .uint16("dataLength")
-  .nest({
-    type: data => {
-      const map = {
-        "01": vehicleLogin,
-        "02": report,
-        "03": report,
-        "04": logout,
-        "05": platformLogin,
-        "06": logout,
-        "07": new Telegram(),
-        "08": new Telegram(),
-      };
-      return map[data.command];
-    },
-  })
+  .uint8("encrypt", { formatter: toEnum1(...Object.keys(cs.ENCRYPT)) })
+  .uint16("length")
+  .nest("body", { type: getBodyParser })
   .skip(1);

@@ -1,4 +1,4 @@
-import { vehicleLogin, logout, info } from "./packet";
+import { vehicleLogin, logout, info } from "./parser";
 
 // 车辆登入
 it("Vehicle Login", () => {
