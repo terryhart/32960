@@ -1,4 +1,5 @@
 import { vehicleLogin, logout, info } from "./parser";
+import * as cs from "./constants";
 
 // 车辆登入
 it("Vehicle Login", () => {
@@ -34,7 +35,7 @@ it("Vehicle or Platform Logout", () => {
 // 整车数据
 it("Vehicle Data", () => {
   const buf = Buffer.from("0103010032000013881b58000032013e01d21465", "hex");
-  const result = info["vehicle"].decompress(buf);
+  const result = info[cs.REPORT.VEHICLE].decompress(buf);
   expect(result).toEqual({
     aptv: 0.2,
     brake: 1.01,
@@ -55,7 +56,7 @@ it("Vehicle Data", () => {
 // 驱动电机数据
 it("Motor Data", () => {
   const buf = Buffer.from("0202014B639C3A346D187C271001014B639C3A346D187C2710", "hex");
-  const result = info["motor"].decompress(buf);
+  const result = info[cs.REPORT.MOTOR].decompress(buf);
   expect(result).toEqual({
     count: 2,
     motors: [
@@ -94,14 +95,14 @@ it("Engine Data", () => {});
 // 车辆位置
 it("Vehicle Location", () => {
   const buf = Buffer.from("00072733A101CF049C", "hex");
-  const result = info["location"].decompress(buf);
+  const result = info[cs.REPORT.LOCATION].decompress(buf);
   expect(result).toEqual({ lat: 30.344348, lng: 120.009633, state: 0 });
 });
 
 // 极值数据
 it("Extreme Data", () => {
   const buf = Buffer.from("0111064001020500010150010540", "hex");
-  const result = info["extreme"].decompress(buf);
+  const result = info[cs.REPORT.EXTREME].decompress(buf);
   expect(result).toEqual({
     maxNtc: 40,
     maxNtcNo: 1,
@@ -121,7 +122,7 @@ it("Extreme Data", () => {
 // 报警数据
 it("Alarm Data", () => {
   const buf = Buffer.from("0000000000000000000801011B58", "hex");
-  const result = info["alarm"].decompress(buf);
+  const result = info[cs.REPORT.ALARM].decompress(buf);
   expect(result).toEqual({
     engineLen: 0,
     engineList: [],
@@ -162,7 +163,7 @@ it("RessVoltage Data", () => {
     "01011B583A98001100011106400500064006400640064006400640064006400640064006400640064006400640",
     "hex"
   );
-  const result = info["ressVoltage"].decompress(buf);
+  const result = info[cs.REPORT.RESS_VOLTAGE].decompress(buf);
   expect(result).toEqual({
     subCount: 1,
     subSystems: [
@@ -200,7 +201,7 @@ it("RessVoltage Data", () => {
 // 可充电储能装置温度数据
 it("ressTemperature Data", () => {
   const buf = Buffer.from("010100055040404040", "hex");
-  const result = info["ressTemperature"].decompress(buf);
+  const result = info[cs.REPORT.RESS_TEMPERATURE].decompress(buf);
   expect(result).toEqual({
     subCount: 1,
     subSystems: [{ no: 1, probeCount: 5, temps: [40, 24, 24, 24, 24] }],
@@ -213,7 +214,7 @@ it("CustomExt Data", () => {
     "0030CD0036277E32B038380500000000000000000000001766271A000000000000000000000000121D0000383C0000000016",
     "hex"
   );
-  const result = info["customExt"].decompress(buf);
+  const result = info[cs.REPORT.CUSTOM_EXT].decompress(buf);
   expect(result).toEqual({
     acTemp: 16,
     airMode: "OFF",
@@ -262,7 +263,7 @@ it("TenSeconds Data", () => {
     "0100020003000004271001000200030000042710010002000300000427100100020003000004271001000200030000042710010002000300000427100100020003000004271001000200030000042710010002000300000427100100020003000004271061",
     "hex"
   );
-  const result = info["tenSeconds"].decompress(buf);
+  const result = info[cs.REPORT.TEN_SECONDS].decompress(buf);
   expect(result).toEqual({
     datas: [
       {

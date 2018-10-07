@@ -94,7 +94,7 @@ const date = new Telegram()
 
 export const info = {};
 
-info["vehicle"] = new Telegram()
+info[cs.REPORT.VEHICLE] = new Telegram()
   .endianess("big")
   .uint8("status", { formatter: toEnum1(...Object.keys(cs.VEHICLE_STATUS)) }) // 车辆状态
   .uint8("chargeStatus", { formatter: toEnum1(...Object.keys(cs.CHARGE_STATUS)) }) // 充电状态
@@ -110,7 +110,7 @@ info["vehicle"] = new Telegram()
   .uint8("aptv", { formatter: toNumber(0.01) }) // 加速踏板行程值
   .uint8("brake", { formatter: toNumber(0.01) }); // 制动行程
 
-info["motor"] = new Telegram()
+info[cs.REPORT.MOTOR] = new Telegram()
   .endianess("big")
   .uint8("count", { assert: assertRange(1, 253) }) // 驱动电机个数
   .array("motors", {
@@ -126,7 +126,7 @@ info["motor"] = new Telegram()
       .uint16("current", { formatter: toNumber(0.1, -10000, 0xfffe, 0xffff) }), // 电机控制器直流母线电流
   });
 
-info["fuelcell"] = new Telegram()
+info[cs.REPORT.FUELCELL] = new Telegram()
   .endianess("big")
   .uint16("voltage", { formatter: toNumber(0.1, 0, 0xfffe, 0xffff) }) // 电压
   .uint16("current", { formatter: toNumber(0.1, 0, 0xfffe, 0xffff) }) // 电流
@@ -145,19 +145,19 @@ info["fuelcell"] = new Telegram()
   .uint8("maxVoltageOfhNo", { formatter: toNumber() }) // 氢气最高压力传感器代号
   .uint8("dc", { formatter: toEnum1(...Object.keys(cs.DC_STATUS)) }); // 高压DC/DC状态
 
-info["engine"] = new Telegram()
+info[cs.REPORT.ENGINE] = new Telegram()
   .endianess("big")
   .uint8("state", { formatter: toEnum1(...Object.keys(cs.ENGINE_STATUS)) }) // 发动机状态
   .uint16("csSpeed", { formatter: toNumber(1, 0, 0xfffe, 0xffff) }) // 曲轴转速
   .uint16("fcRate", { formatter: toNumber(0.01, 0, 0xfffe, 0xffff) }); // 燃料消耗率
 
-info["location"] = new Telegram()
+info[cs.REPORT.LOCATION] = new Telegram()
   .endianess("big")
   .uint8("state") // 定位状态
   .uint32("lng", { formatter: toNumber(0.000001, 0, 0xfffe, 0xffff) }) // 经度
   .uint32("lat", { formatter: toNumber(0.000001, 0, 0xfffe, 0xffff) }); // 纬度
 
-info["extreme"] = new Telegram()
+info[cs.REPORT.EXTREME] = new Telegram()
   .endianess("big")
   .uint8("maxVoltageSubSysNo", { formatter: toNumber() }) // 最高电压电池子系统号
   .uint8("maxVoltageSingNo", { formatter: toNumber() }) // 最高电压电池单体代号
@@ -202,7 +202,7 @@ const uas = new Telegram()
   .bit1("batteryTempOver") // 电池高温报警
   .bit1("tempDiff"); // 温度差异报警
 
-info["alarm"] = new Telegram()
+info[cs.REPORT.ALARM] = new Telegram()
   .endianess("big")
   .uint8("maxLevel", { formatter: toNumber() }) // 最高报警等级
   .nest("uas", { type: uas, lengthInBytes: 4 }) // 通用报警标志
@@ -215,7 +215,7 @@ info["alarm"] = new Telegram()
   .uint8("otherLen", { formatter: toNumber() }) // 其他故障总数N4
   .array("otherList", { type: fault, length: "otherLen" }); // 其他故障列表
 
-info["ressVoltage"] = new Telegram()
+info[cs.REPORT.RESS_VOLTAGE] = new Telegram()
   .endianess("big")
   .uint8("subCount") // 可充电储能子系统个数
   .array("subSystems", {
@@ -234,7 +234,7 @@ info["ressVoltage"] = new Telegram()
       }), // 单体电池电压
   });
 
-info["ressTemperature"] = new Telegram()
+info[cs.REPORT.RESS_TEMPERATURE] = new Telegram()
   .endianess("big")
   .uint8("subCount") // 可充电储能子系统个数
   .array("subSystems", {
@@ -249,7 +249,7 @@ info["ressTemperature"] = new Telegram()
       }), // 单体电池温度
   });
 
-info["customExt"] = new Telegram()
+info[cs.REPORT.CUSTOM_EXT] = new Telegram()
   .endianess("big")
   .uint16("dataLen") // 数据长度
   .uint8("pressure1", { formatter: toNumber(4) }) // 气压1
@@ -290,7 +290,7 @@ info["customExt"] = new Telegram()
   .bit2("handbrakeStatus", { formatter: toEnum0(...Object.keys(cs.HANDBRAKE_STATUS)) }) // 手刹
   .bit2("keyPosition", { formatter: toEnum0(...Object.keys(cs.KEY_POSITION)) }); // 钥匙
 
-info["tenSeconds"] = new Telegram().endianess("big").array("datas", {
+info[cs.REPORT.TEN_SECONDS] = new Telegram().endianess("big").array("datas", {
   length: 10,
   type: new Telegram()
     .skip(1)
@@ -368,17 +368,17 @@ export const report = new Telegram()
       .uint8("type", {
         formatter: val => {
           const map = {
-            0x01: "vehicle",
-            0x02: "motor",
-            0x03: "fuelcell",
-            0x04: "engine",
-            0x05: "location",
-            0x06: "extreme",
-            0x07: "alarm",
-            0x08: "ressVoltage",
-            0x09: "ressTemperature",
-            0x80: "customExt",
-            0x81: "tenSeconds",
+            0x01: cs.REPORT.VEHICLE,
+            0x02: cs.REPORT.MOTOR,
+            0x03: cs.REPORT.FUELCELL,
+            0x04: cs.REPORT.ENGINE,
+            0x05: cs.REPORT.LOCATION,
+            0x06: cs.REPORT.EXTREME,
+            0x07: cs.REPORT.ALARM,
+            0x08: cs.REPORT.RESS_VOLTAGE,
+            0x09: cs.REPORT.RESS_TEMPERATURE,
+            0x80: cs.REPORT.CUSTOM_EXT,
+            0x81: cs.REPORT.TEN_SECONDS,
           };
           return map[val];
         },
