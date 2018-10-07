@@ -1,4 +1,4 @@
-import { vehicleLogin, logout, info } from "./parser";
+import { vehicleLogin, platformLogin, logout, info } from "./parser";
 import * as cs from "./constants";
 
 // 车辆登入
@@ -20,7 +20,19 @@ it("Vehicle Login", () => {
 
 // TODO: add platform login test
 // 平台登入
-it("Platform Login", () => {});
+it("Platform Login", () => {
+  const buf = Buffer.from(
+    "120A07150D2900027975746F6E67000000000000313231000000000000000000000000000000000001",
+    "hex"
+  );
+  const result = platformLogin.decompress(buf);
+  expect(result).toEqual({
+    at: new Date("2018-10-07T13:13:41.000Z"),
+    password: "121",
+    sn: 2,
+    username: "yutong",
+  });
+});
 
 // 车辆或者平台登出
 it("Vehicle or Platform Logout", () => {
