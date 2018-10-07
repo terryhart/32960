@@ -26,6 +26,20 @@ it("Login", () => {
   });
 });
 
+it("Realtime Report with Wrong Data", () => {
+  const buf = Buffer.from(
+    "232302FE4C575843443545343148443630303530380102B012051D090B100101030100570004C56818F326C352010E319400000201010052526C4E206E18F326C30500073BC62801DCE2CB0601250D0C011D0CDA01602B01602B0700000000000000000008010118F326C300C00001C00CF40CED0CF00CF60CEF0CF30CFA0CF40CF60CFA0CF40CF70CFD0CF80CFA0CFD0CF80CFA0CFD0CF80CFA0CFE0CF80CFB0CFF0CF90CFC0CE20CDA0CDE0CED0CE60CE90D0C0D070D090D0C0D070D090D080D030D050D080D030D050D000CFA0CFC0CFD0CF70CFA0CEE0CE70CEA0CEA0CE30CE60CE60CDF0CE20CE60CDF0CE20CE20CDB0CDE0CF60CEF0CF20D060D010D030CFE0CF80CFA0D030CFD0CFF0D030CFD0CFF0CFE0CF80CFB0CFE0CF80CFA0CF50CEF0CF10CF80CF10CF40CF40CED0CF00CF10CF00CEF0CF30CF10CF10CF80CF50CF50CF80CF60CF60CFB0CF90CF90CFC0CF90CFA0CFC0CF90CFA0CFD0CFB0CFB0CFD0CFB0CFB0CDE0CDC0CDC0CEA0CE80CE80D0B0D090D080D0B0D090D090D060D050D050D060D050D050CFE0CFC0CFC0CFB0CF90CF90CEB0CE90CE90CE60CE50CE50CE30CE10CE10CE30CE10CE10CDF0CDD0CDE0CF30CF10CF10D050D020D020CFB0CF90CFA0D000CFE0CFF0D000CFE0CFF0CFC0CFA0CFA0CFB0CF90CF90CF20CF10CF10CF50CF30CF30CF10CF00CEF09010100602B2B2B2B2B2B2B2B2B2B2B2B2B2B2B2B2B2B2B2B2B2B2B2B2B2B2B2B2B2B2B2B2B2B2B2B2B2B2B2B2B2B2B2B2B2B2B2B2B2B2B2B2B2B2B2B2B2B2B2B2B2B2B2B2B2B2B2B2B2B2B2B2B2B2B2B2B2B2B2B2B2B2B2B2B2B2B2B2B2B2B2B2B2B2B2B80001000000000000000000000000000000000810007C2C23430205000820005000000000083001CFA0DAC09C431942EEA18F30000000046F0000040A600001A1F000088840008280028223FF352018500082710271027105100870004000035358C00060000000000008D00060000207E000BF6",
+    "hex"
+  );
+
+  try {
+    expect.assertions(1);
+    protocol.parse(buf);
+  } catch (err) {
+    expect(err).toEqual(new Error("Report has wrong info type 0."));
+  }
+});
+
 it("Realtime Report", () => {
   const buf = Buffer.from(
     "232302FE45525230383033303030303030303030300100B71206170C05020101030100320000023D1B583A9832013E121D0065020101013C61A888B83C00783A980500072733A101CF049C060111064001020500010150010540070000000000000000000801011B583A9800110001110640050006400640064006400640064006400640064006400640064006400640064009010100055040404040800030CD0036277E32B038380500000000000000000000001766271A000000000000000000000000121D0000383C000000001674",
@@ -218,7 +232,93 @@ it("Realtime Report", () => {
   });
 });
 
-it("response heart beat", () => {
+it("10 Seconds", () => {
+  const buf = Buffer.from(
+    "232303FE4C5758435332303137313130373030303001006B1206150D312F810100020003000004271001000200030000042710010002000300000427100100020003000004271001000200030000042710010002000300000427100100020003000004271001000200030000042710010002000300000427100100020003000004271054",
+    "hex"
+  );
+  const req = protocol.parse(buf);
+  expect(req.length).toBe(107);
+  expect(req).toEqual({
+    command: "REISSUE_REPORT",
+    flag: "COMMAND",
+    vin: "LWXCS201711070000",
+    encrypt: "NONE",
+    length: 107,
+    body: {
+      at: "2018-06-21T05:49:47.000Z",
+      items: [
+        {
+          type: "TEN_SECONDS",
+          datas: [
+            {
+              accPedal: 0,
+              brake: 0,
+              speed: 0,
+              totalCurrent: 9000,
+            },
+            {
+              accPedal: 0,
+              brake: 0,
+              speed: 0,
+              totalCurrent: 9000,
+            },
+            {
+              accPedal: 0,
+              brake: 0,
+              speed: 0,
+              totalCurrent: 9000,
+            },
+            {
+              accPedal: 0,
+              brake: 0,
+              speed: 0,
+              totalCurrent: 9000,
+            },
+            {
+              accPedal: 0,
+              brake: 0,
+              speed: 0,
+              totalCurrent: 9000,
+            },
+            {
+              accPedal: 0,
+              brake: 0,
+              speed: 0,
+              totalCurrent: 9000,
+            },
+            {
+              accPedal: 0,
+              brake: 0,
+              speed: 0,
+              totalCurrent: 9000,
+            },
+            {
+              accPedal: 0,
+              brake: 0,
+              speed: 0,
+              totalCurrent: 9000,
+            },
+            {
+              accPedal: 0,
+              brake: 0,
+              speed: 0,
+              totalCurrent: 9000,
+            },
+            {
+              accPedal: 0,
+              brake: 0,
+              speed: 0,
+              totalCurrent: 9000,
+            },
+          ],
+        },
+      ],
+    },
+  });
+});
+
+it("Response Heart Beat", () => {
   const buf = Buffer.from("232307FE4838323230363530303030303030303030010000BB", "hex");
   const req = protocol.parse(buf);
   const resBuf = protocol.respond(req, buf);
@@ -226,7 +326,7 @@ it("response heart beat", () => {
   expect(resBuf.toString("hex")).toEqual("23230701483832323036353030303030303030303001000044");
 });
 
-it("response time check", () => {
+it("Response Time Check", () => {
   const buf = Buffer.from("232308FE4552523038303330303030303030303030010000B9", "hex");
   const req = protocol.parse(buf);
   const resBuf = protocol.respond(req, buf);

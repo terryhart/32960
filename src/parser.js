@@ -380,6 +380,7 @@ export const report = new Telegram()
             0x80: cs.REPORT.CUSTOM_EXT,
             0x81: cs.REPORT.TEN_SECONDS,
           };
+          if (!map[val]) throw new Error(`Report has wrong info type ${val.toString(16)}.`);
           return map[val];
         },
       })
