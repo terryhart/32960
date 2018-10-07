@@ -345,7 +345,7 @@ export const platformLogin = new Telegram()
   })
   .uint16("sn")
   .string("username", { length: 12, stripNull: true })
-  .string("passwrod", { length: 20, stripNull: true })
+  .string("password", { length: 20, stripNull: true })
   .skip(1); // .string("encryptRule", { length: 1, encoding: "hex" });
 
 export const logout = new Telegram()
