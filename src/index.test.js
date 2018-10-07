@@ -246,7 +246,7 @@ it("10 Seconds", () => {
     encrypt: "NONE",
     length: 107,
     body: {
-      at: "2018-06-21T05:49:47.000Z",
+      at: new Date("2018-06-21T05:49:47.000Z"),
       items: [
         {
           type: "TEN_SECONDS",
