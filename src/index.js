@@ -91,20 +91,19 @@ export default class Protocol {
   }
 
   /**
-   * 构造应答
+   * 构造成功应答
    *
-   * @param {number} flag 应答标志: 1 成功 2 失败 3 VIN 重复
    * @param {Packet} req 解析后的请求数据
    * @param {Buffer} origin 原始二进制包
    * @returns {Buffer} 应答包
    */
-  respond(flag, req, origin) {
+  respond(req, origin) {
     // 由于 telegram 还不支持 build buf
     // 临时直接构造一个 用于应答的包
     const size = req.command === cs.COMMAND.HEARTBEAT ? 25 : 31; // 心跳包的回复不包含时间
     const buf = Buffer.alloc(size, origin);
-    buf.writeUInt8(flag, 3);
-    if (size === 31) buf.writeInt16BE(6, 22); // 如果包含时间, 则数据长度是 6
+    buf.writeUInt8(1, 3); // 1 成功标志
+    buf.writeInt16BE(size - 25, 22); // 如果包含时间, 则数据长度是 6
 
     // 校时 单独写入时间
     if (req.command === cs.COMMAND.TIME) {
@@ -117,6 +116,21 @@ export default class Protocol {
       buf.writeInt8(now.getSeconds(), 29);
     }
 
+    buf.writeUInt8(this.bcc(buf), size - 1);
+    return buf;
+  }
+
+  /**
+   * 构造错误应答
+   *
+   * @param {Buffer} origin 原始二进制包
+   * @returns {Buffer} 应答包
+   */
+  respondError(origin) {
+    const size = 25;
+    const buf = Buffer.alloc(size, origin);
+    buf.writeUInt8(2, 3); // 2 解析失败标志
+    buf.writeInt16BE(size - 25, 22);
     buf.writeUInt8(this.bcc(buf), size - 1);
     return buf;
   }
