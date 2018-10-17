@@ -21,6 +21,8 @@ const buf = protocol.build(data);
 
 ### use as a default server
 
+Provide a simple default server, which power the 100% standard 32960 protocol.
+
 ```js
 import { server } from "@36node/protocol-32960";
 
@@ -32,6 +34,9 @@ server.listen(3000, () => console.log(`app started at port 3000`));
 ```sh
 yarn global add @36node/protocol-32960
 APP_PORT=3000 32960
+
+## platform AUTH
+APP_AUTH="yutong:222,wanxiang:455" APP_PORT=3000 32960
 ```
 
 ### use in whisper
@@ -54,8 +59,4 @@ please follow the code in `src/server.js`
 
 Authored and maintained by 36node with help from contributors ([list](https://github.com/36node/module/contributors)).
 
-> [github.com/zzswang](https://github.com/zzswang) · GitHub [@36node](https://github.com/36node) · Twitter [@y](https://twitter.com/y)
-
-```
-
-```
+> [github.com/zzswang](https://github.com/zzswang) · GitHub [@36node](https://github.com/36node)
