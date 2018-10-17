@@ -1,5 +1,6 @@
 export const ABNORMAL = "ABNORMAL";
 export const VEHICLE_STATUS = { ON: "ON", OFF: "OFF", OTHER: "OTHER" }; // 车辆状态: 启动, 熄火
+
 // 充电状态
 export const CHARGE_STATUS = {
   PARK_CHARGING: "PARK_CHARGING", // 停车充电
@@ -10,6 +11,7 @@ export const CHARGE_STATUS = {
 export const VEHICLE_MODE = { ELECTRIC: "ELECTRIC", MIXED: "MIXED", FUEL: "FUEL" }; // 车辆模式: 纯电, 混合, 燃油
 export const DC_STATUS = { ON: "ON", OFF: "OFF" }; // DC-DC 状态: 工作, 断开
 export const ENGINE_STATUS = { ON: "ON", OFF: "OFF" }; // 发动机状态: 工作, 断开
+
 // 车辆档位
 export const VEHICLE_SHIFT = [
   "N",
@@ -36,6 +38,7 @@ export const MOTOR_STATUS = {
   OFF: "OFF",
   READY: "READY",
 };
+
 // 空调模式: 关闭, 进风, 制热, 制冷
 export const AIR_MODE = {
   OFF: "OFF",
@@ -43,9 +46,11 @@ export const AIR_MODE = {
   HEATING: "HEATING",
   REFRIGERATION: "REFRIGERATION",
 };
+
 export const DOOR_STATUS = { CLOSE: "CLOSE", OPEN: "OPEN", ABNORMAL: "ABNORMAL" }; // 门状态: 关闭, 开, 异常
 export const HANDBRAKE_STATUS = { OFF: "OFF", ON: "ON", ABNORMAL: "ABNORMAL" }; // 手刹状态: 松, 刹, 异常
 export const KEY_POSITION = { OFF: "OFF", ACC: "ACC", ON: "ON", START: "START" }; // 钥匙位置
+
 // 命令标志
 export const COMMAND = {
   VEHICLE_LOGIN: "VEHICLE_LOGIN", // 车辆登入 0x01
@@ -57,6 +62,7 @@ export const COMMAND = {
   HEARTBEAT: "HEARTBEAT", // 心跳 0x07
   TIME: "TIME", // 车辆校时 0x08
 };
+
 // 应答标志
 export const FLAG = {
   SUCCESS: "SUCCESS",
@@ -64,12 +70,14 @@ export const FLAG = {
   VIN_DUP: "VIN_DUP",
   COMMAND: "COMMAND",
 };
+
 // 加密标志
 export const ENCRYPT = {
   NONE: "NONE",
   RSA: "RSA",
   AES128: "AES128",
 };
+
 // 信息体
 export const REPORT = {
   VEHICLE: "VEHICLE",

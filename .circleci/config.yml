@@ -48,12 +48,24 @@ jobs:
     steps:
       - attach_workspace:
           at: ~/repo
+      - setup_remote_docker
       - run:
           name: Authenticate With Registry
           command: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ~/repo/.npmrc
       - run:
           name: Publish Package
           command: npm publish
+      - run:
+          name: Setup Environment Variables
+          command: |
+            echo "export TAG=`if test $CIRCLE_TAG; then echo $CIRCLE_TAG; else echo "$CIRCLE_BRANCH"; fi`" >> $BASH_ENV
+            source $BASH_ENV
+      - run:
+          name: Build and Push Image
+          command: |
+            unset CI
+            chmod +x bin/build-docker.sh
+            bin/build-docker.sh $TAG $DOCKER_USER $DOCKER_PASS $DOCKER_REGISTRY
 
 workflows:
   version: 2
