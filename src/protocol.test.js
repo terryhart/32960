@@ -1,4 +1,4 @@
-import Protocol from "./index";
+import Protocol from "./protocol";
 
 const protocol = new Protocol();
 
