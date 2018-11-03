@@ -14,28 +14,34 @@ dotenv.config();
 
 /**
  *
- * @param {*} name envrionment name
- * @param {*} option option with { required, default }
+ * @param {string} name envrionment name
+ * @param {object} opt option with { required, default }
  * @returns {*} value
  */
 
-export function env(name, option) {
-  const value = process.env[name];
+export function env(name, opt = {}) {
+  const value = process.env[`APP_${name.toUpperCase()}`];
 
-  if (option.required && !value) {
+  if (opt.required && !value) {
     throw new Error(`environment ${name} is required`);
   }
 
-  return value || option.default;
+  return value || opt.default;
 }
 
 /**
  * app
  */
 
-export const PORT = env("APP_PORT", { default: 9527 });
+export const PORT = env("PORT", { default: 9527 });
 
 /**
  *  平台登录账号和密码
  */
-export const AUTH = env("APP_AUTH", { default: "yutong:121,shenwo:222" });
+export const AUTH = env("AUTH", { default: "yutong:121,shenwo:222" });
+
+/**
+ * tcpcopy 目的地
+ */
+export const DUP_HOST = env("DUP_HOST");
+export const DUP_PORT = env("DUP_PORT");

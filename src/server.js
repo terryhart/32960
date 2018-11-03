@@ -1,12 +1,12 @@
 import Whisper from "@36node/whisper";
 import Protocol from "./protocol";
-import Pino from "pino";
 
 import { AUTH } from "./config";
+import tcpcopy from "./tcpcopy";
+import logger from "./logger";
 
 const app = new Whisper();
 const protocol = new Protocol();
-const logger = new Pino();
 
 function hexify(buf) {
   if (buf instanceof Buffer) {
@@ -98,6 +98,7 @@ const frameHandler = (ctx, next) => {
   return next();
 };
 
+app.use(tcpcopy);
 app.use(logHandler);
 app.use(errHandler);
 app.use(packetHandler);
