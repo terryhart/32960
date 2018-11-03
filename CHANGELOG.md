@@ -2,6 +2,41 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.3.3"></a>
+## [0.3.3](https://github.com/36node/32960/compare/v0.3.1...v0.3.3) (2018-11-03)
+
+
+### Bug Fixes
+
+* jest test ([e5083a0](https://github.com/36node/32960/commit/e5083a0))
+
+
+
+<a name="0.3.2"></a>
+## [0.3.2](https://github.com/36node/32960/compare/v0.3.1...v0.3.2) (2018-11-03)
+
+
+### Bug Fixes
+
+* jest test ([3f255d7](https://github.com/36node/32960/commit/3f255d7))
+
+
+
+<a name="0.3.3"></a>
+## [0.3.3](https://github.com/36node/32960/compare/v0.3.2...v0.3.3) (2018-11-03)
+
+
+
+<a name="0.3.2"></a>
+## [0.3.2](https://github.com/36node/32960/compare/v0.3.1...v0.3.2) (2018-11-03)
+
+
+### Bug Fixes
+
+* change to babel translate ([bdac9b3](https://github.com/36node/32960/commit/bdac9b3))
+
+
+
 <a name="0.3.1"></a>
 ## [0.3.1](https://github.com/36node/32960/compare/v0.3.0...v0.3.1) (2018-11-03)
 

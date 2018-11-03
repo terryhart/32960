@@ -12,22 +12,20 @@
   },
   "files": [
     "bin",
-    "dist"
+    "dist",
+    "typings"
   ],
   "main": "dist/index.js",
-  "module": "dist/index.mjs",
   "typings": "typings/index.d.ts",
-  "bin": {
-    "32960": "dist/cli.js"
-  },
+  "bin": "dist/cli.js",
   "scripts": {
-    "build": "microbundle build --format cjs src/{cli,index}.js",
+    "build": "rm -rf dist && babel ./src -d ./dist --ignore test.js",
     "format": "prettier --trailing-comma es5 --write",
     "lint": "eslint src",
     "release": "standard-version && git push --follow-tags origin master",
     "start": "nodemon src/cli.js --watch src --delay 1500ms --exec 'babel-node' | pino-pretty -c -t",
     "server": "node dist/cli.js",
-    "test": "jest --silent"
+    "test": "jest --silent --detectOpenHandles --forceExit"
   },
   "commitlint": {
     "extends": [
@@ -58,7 +56,6 @@
     "husky": "^1.0.0-rc.13",
     "jest": "^23.4.2",
     "lint-staged": "^7.2.0",
-    "microbundle": "^0.6.0",
     "nodemon": "^1.18.3",
     "pino-pretty": "^2.2.1",
     "prettier": "^1.13.7",
