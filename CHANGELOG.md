@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.3.1"></a>
+## [0.3.1](https://github.com/36node/32960/compare/v0.3.0...v0.3.1) (2018-11-03)
+
+
+### Bug Fixes
+
+* send after connected ([8760d6e](https://github.com/36node/32960/commit/8760d6e))
+
+
+
 <a name="0.3.0"></a>
 # [0.3.0](https://github.com/36node/32960/compare/v0.2.0...v0.3.0) (2018-11-03)
 
