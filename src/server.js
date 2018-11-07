@@ -9,7 +9,7 @@ const app = new Whisper();
 const protocol = new Protocol();
 
 function hexify(buf) {
-  if (buf instanceof Buffer) {
+  if (buf && buf instanceof Buffer) {
     return buf.toString("hex");
   }
   return buf;
@@ -28,45 +28,41 @@ function getAccounts(auth = "") {
       accounts[pair[0].trim()] = pair[1].trim();
     });
   } catch (err) {
-    console.error(err);
+    throw new Error("split AUTH env error");
   }
   return accounts;
 }
 const ACCOUNTS = getAccounts(AUTH);
 
 const logHandler = async (ctx, next) => {
-  const startedAt = Date.now();
-
-  await next();
-
-  const endAt = Date.now();
-  logger.info(
-    {
-      session: ctx.session.id,
-      seq: ctx.no,
-      cost: endAt - startedAt,
-      origin: hexify(ctx.data),
-      request: ctx.req,
-      response: hexify(ctx.res),
-    },
-    "handle rdb data"
-  );
-};
-
-const errHandler = async (ctx, next) => {
   try {
+    const startedAt = Date.now();
     await next();
+    const endAt = Date.now();
+    logger.info(
+      {
+        session: ctx.session.id,
+        seq: ctx.no,
+        cost: endAt - startedAt,
+        origin: hexify(ctx.data),
+        request: ctx.req,
+        response: hexify(ctx.res),
+      },
+      "handle tbox data success"
+    );
   } catch (err) {
     logger.error(
       {
         session: ctx.session.id,
+        seq: ctx.no,
         error: {
           type: err.constructor.name,
           message: err.message,
           stack: err.stack,
         },
+        origin: hexify(ctx.data),
       },
-      "request error"
+      "handle tbox data failed"
     );
   }
 };
@@ -87,7 +83,7 @@ const frameHandler = (ctx, next) => {
       throw new Error("Platform username or password wrong.");
     }
 
-    if (protocol.shouldRespond(ctx.data)) {
+    if (protocol.shouldRespond(ctx.req)) {
       ctx.res = protocol.respond(ctx.req, ctx.data);
     }
   } catch (err) {
@@ -100,7 +96,6 @@ const frameHandler = (ctx, next) => {
 
 app.use(tcpcopy);
 app.use(logHandler);
-app.use(errHandler);
 app.use(packetHandler);
 app.use(frameHandler);
 

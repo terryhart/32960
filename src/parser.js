@@ -167,7 +167,7 @@ info[cs.REPORT.EXTREME] = new Telegram()
   .uint16("minVoltage", { formatter: toNumber(0.001, 0, 0xfffe, 0xffff) }) // 电池单体电压最低值
   .uint8("maxNtcSubSysNo", { formatter: toNumber() }) // 最高温度子系统号
   .uint8("maxNtcNo", { formatter: toNumber() }) // 最高温度探针序号
-  .uint8("maxNtc", { formatter: toNumber(1, -40) }) // 最高温度值
+  .uint8("maxNtc", { formatter: toNumber(1, -40) }) // 最高单体电池温度值
   .uint8("minNtcSubSysNo", { formatter: toNumber() }) // 最低温度子系统号
   .uint8("minNtcNo", { formatter: toNumber() }) // 最低温度探针序号
   .uint8("minNtc", { formatter: toNumber(1, -40) }); // 最低温度值

@@ -322,7 +322,7 @@ it("Response Heart Beat", () => {
   const buf = Buffer.from("232307FE4838323230363530303030303030303030010000BB", "hex");
   const req = protocol.parse(buf);
   const resBuf = protocol.respond(req, buf);
-  expect(protocol.shouldRespond(buf)).toBe(true);
+  expect(protocol.shouldRespond(req)).toBe(true);
   expect(resBuf.toString("hex")).toEqual("23230701483832323036353030303030303030303001000044");
 });
 
@@ -330,6 +330,6 @@ it("Response Time Check", () => {
   const buf = Buffer.from("232308FE4552523038303330303030303030303030010000B9", "hex");
   const req = protocol.parse(buf);
   const resBuf = protocol.respond(req, buf);
-  expect(protocol.shouldRespond(buf)).toBe(true);
+  expect(protocol.shouldRespond(req)).toBe(true);
   expect(resBuf.toString("hex")).toMatch(/232308014552523038303330303030303030303030010006/);
 });

@@ -86,7 +86,7 @@ export default class Protocol {
       cs.COMMAND.TIME, // 车辆校时 0x08
     ];
     if (cc.includes(req.command)) return true;
-    if (req.flag === cs.FLAG[0xfe]) return true;
+    if (req.flag === cs.FLAG.COMMAND) return true;
     return false;
   }
 
