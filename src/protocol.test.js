@@ -32,12 +32,8 @@ it("Realtime Report with Wrong Data", () => {
     "hex"
   );
 
-  try {
-    expect.assertions(1);
-    protocol.parse(buf);
-  } catch (err) {
-    expect(err).toEqual(new Error("Report has wrong info type 0."));
-  }
+  const result = protocol.parse(buf);
+  expect(result.err).toEqual(new Error("custome ext section has wrong lenth 16"));
 });
 
 it("Realtime Report", () => {

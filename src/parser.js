@@ -251,7 +251,12 @@ info[cs.REPORT.RESS_TEMPERATURE] = new Telegram()
 
 info[cs.REPORT.CUSTOM_EXT] = new Telegram()
   .endianess("big")
-  .uint16("dataLen") // 数据长度
+  .uint16("dataLen", {
+    formatter: val => {
+      if (val !== 0x30) throw new Error(`custome ext section has wrong lenth ${val}`);
+      return val;
+    },
+  }) // 数据长度
   .uint8("pressure1", { formatter: toNumber(4) }) // 气压1
   .uint8("pressure2", { formatter: toNumber(4) }) // 气压2
   .uint8("batteryVoltage", { formatter: toNumber(0.5) }) // 蓄电池电压
@@ -380,7 +385,9 @@ export const report = new Telegram()
             0x80: cs.REPORT.CUSTOM_EXT,
             0x81: cs.REPORT.TEN_SECONDS,
           };
-          if (!map[val]) throw new Error(`Report has wrong info type ${val.toString(16)}.`);
+          if (!map[val]) {
+            throw new Error(`report has wrong info type ${val.toString(16)}`);
+          }
           return map[val];
         },
       })

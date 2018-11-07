@@ -28,9 +28,9 @@
     eslint-plugin-prettier "^2.6.2"
     eslint-plugin-react "^7.10.0"
 
-"@36node/telegram@^0.3.4":
-  version "0.3.4"
-  resolved "https://registry.yarnpkg.com/@36node/telegram/-/telegram-0.3.4.tgz#36402242c3fd11cc505afee53e00e0c2b54dbfa0"
+"@36node/telegram@^0.3.6":
+  version "0.3.6"
+  resolved "https://registry.yarnpkg.com/@36node/telegram/-/telegram-0.3.6.tgz#0f391d91f5e9f0fef5456b53417489dccdc95332"
 
 "@36node/whisper@^0.1.3":
   version "0.1.3"
