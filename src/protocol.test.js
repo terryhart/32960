@@ -34,7 +34,7 @@ it("Realtime Report with Wrong Data", () => {
   );
 
   const result = protocol.parse(buf);
-  expect(result.err).toEqual(new Error("custome ext section has wrong lenth 16"));
+  expect(result.err).toEqual("custome ext section has wrong lenth 16");
 });
 
 it("Realtime Report", () => {

@@ -67,23 +67,50 @@ const logHandler = async (ctx, next) => {
   }
 };
 
-const packetHandler = (ctx, next) => {
+/**
+ * 处理整个包，可能有粘帧
+ */
+const packetHandler = async (ctx, next) => {
+  const length = protocol.len(ctx.data);
+  let rest;
+
+  if (length < ctx.data.length) {
+    rest = ctx.data.slice(length);
+    ctx.data = ctx.data.slice(0, length);
+  }
+
+  await next();
+
   // 处理包中是否有粘帧，如果有多帧，解开
-  const rest = protocol.deSticky(ctx.data);
-  if (rest) {
+  if (rest && rest.length > 0) {
     ctx.socket.emit("data", rest);
   }
-  return next();
 };
 
+/**
+ * 处理当前帧
+ */
 const frameHandler = (ctx, next) => {
   try {
     const req = (ctx.req = protocol.parse(ctx.data));
-    if (req.command === "PLATFORM_LOGIN" && ACCOUNTS[req.body.username] !== req.body.password) {
-      throw new Error("Platform username or password wrong.");
+
+    // platform 登录
+    if (req.command === "PLATFORM_LOGIN") {
+      if (!req.body || !req.body.username) {
+        throw new Error("no username provided for platform login request");
+      }
+      if (ACCOUNTS[req.body.username] !== req.body.password) {
+        throw new Error(
+          `platform username password not match: ${req.body.username}/${req.body.password}`
+        );
+      }
+      ctx.session.username = req.body.username;
+      ctx.session.platform = true;
+      delete req.body.password;
     }
 
-    if (protocol.shouldRespond(ctx.req)) {
+    // 平台的包一律应答
+    if (ctx.session.platform || protocol.shouldRespond(ctx.req)) {
       ctx.res = protocol.respond(ctx.req, ctx.data);
     }
   } catch (err) {
