@@ -14,7 +14,7 @@ export default class Protocol {
   bcc(buf) {
     let bcc = 0;
     // 校验从命令单元的第一个字节开始, 至倒数第二个字节结束
-    for (let i = 2; i < buf.length - 1; i++) {
+    for (let i = 2; i < this.len(buf) - 1; i++) {
       bcc ^= buf[i];
     }
     return bcc;
@@ -26,7 +26,7 @@ export default class Protocol {
    * @param {Buffer} buf 二进制数据包
    */
   len(buf) {
-    return buf.readUInt16BE(22);
+    return buf.readUInt16BE(22) + 25;
   }
 
   /**
@@ -40,11 +40,11 @@ export default class Protocol {
       throw new Error("Packet not start with ##");
     }
 
-    if (this.len(buf) + 25 > buf.length) {
+    if (this.len(buf) > buf.length) {
       throw new Error("The length of data is not expected.");
     }
 
-    if (this.bcc(buf) !== buf[buf.length - 1]) {
+    if (this.bcc(buf) !== buf[this.len(buf) - 1]) {
       throw new Error("XOR checksum error.");
     }
 
@@ -58,7 +58,7 @@ export default class Protocol {
    * @returns {Buffer|void} 如果没有粘帧，则返回 undefined
    */
   deSticky(buf) {
-    const length = this.len(buf) + 25;
+    const length = this.len(buf);
     if (length < buf.length) {
       return buf.slice(length);
     }

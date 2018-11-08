@@ -1,4 +1,5 @@
 import Protocol from "./protocol";
+import * as cs from "./constants";
 
 const protocol = new Protocol();
 
@@ -328,4 +329,16 @@ it("Response Time Check", () => {
   const resBuf = protocol.respond(req, buf);
   expect(protocol.shouldRespond(req)).toBe(true);
   expect(resBuf.toString("hex")).toMatch(/232308014552523038303330303030303030303030010006/);
+});
+
+it("Should deSticky successfully", () => {
+  const buf = Buffer.from(
+    "232303fe4c53464430333230584a4330303136303301006b120b0809072081011902ff0300c8042db6010002ff0300d2042db6013502ff0300e6042db6013002ff0300f0042db6010602ff0300fa042db6010002ff0300fa042db6010002ff0300fa042db6010002ff0300e6042db6010002ff0300dc0426dc010002ff0300c80426dc7e232302fe4c53464430333230584a4330303136303301020c120b080907210101030100c8000311e6171b2db64d012e196419ff020101014d58d054746417082a620500073d088101dbcf8a0601680cf801eb0cd0011a4101233907000000000000000000080101171b2db6016800c9a00cf80cf80cf80ce40ce40ce40ce40ce40ce40ce40ce40ce40ce40ce40ce40ce40cf80ce40ce40ce40ce40ce40ce40ce40ce40ce40ce40ce40ce40ce40ce40ce40ce40ce40cd00ce40ce40ce40cf80ce40cf80ce40ce40ce40cf80cf80cf80cf80cf80cf80cf80cf80cf80cf80cf80cf80cf80cf80cf80ce40ce40ce40ce40ce40ce40ce40ce40ce40ce40ce40ce40ce40ce40cf80cf80cf80cf80cf80cf80cf80cf80cf80cf80cf80cf80cf80cf80cf80cf80cf80cf80cf80cf80cf80ce40ce40ce40ce40ce40ce40ce40cf80cf80cf80cf80cf80cf80cf80cf80cf80cf80cf80cf80cf80cf80cf80cf80cf80cf80cf80cf80cf80cf80cf80cf80cf80cf80cf80cf80cf80cf80cf80cf80cf80cf80cf80ce40ce40ce40ce40ce40ce40ce40cf80cf80cf80cf80cf80cf80cf80cf80cf80cf80cf80cf80cf80cf80cf80cf80cf8090101003c3a3c3d3c3b3c3b3c3d3c3b3c3a3b3c3b3a3b3a3b3c3b393a404140403f3f",
+    "hex"
+  );
+
+  const next = protocol.deSticky(buf);
+  const result = protocol.parse(buf);
+  expect(next.length).toBe(467);
+  expect(result.command).toBe(cs.COMMAND.REISSUE_REPORT);
 });
