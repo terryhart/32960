@@ -1,8 +1,10 @@
 FROM node:10-alpine
 
+ENV TZ Asia/Shanghai
 ENV DEBUG=off \
   NODE_ENV=production \
   APP_PORT=1024
+
 
 RUN mkdir app
 WORKDIR /app
