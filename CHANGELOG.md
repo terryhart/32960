@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.4.0"></a>
+# [0.4.0](https://github.com/36node/32960/compare/v0.3.8...v0.4.0) (2018-11-10)
+
+
+### Bug Fixes
+
+* Doc ([911de7a](https://github.com/36node/32960/commit/911de7a))
+* upgrade telegram ([0848966](https://github.com/36node/32960/commit/0848966))
+
+
+### Features
+
+* addDoc ([b3b19d3](https://github.com/36node/32960/commit/b3b19d3))
+
+
+
 <a name="0.3.8"></a>
 ## [0.3.8](https://github.com/36node/32960/compare/v0.3.7...v0.3.8) (2018-11-08)
 
