@@ -34,6 +34,7 @@ it("Realtime Report with Wrong Data", () => {
   );
 
   const result = protocol.parse(buf);
+  expect(result.body.at).toEqual(new Date("2018-05-29T01:11:16.000Z"));
   expect(result.err).toEqual("custome ext section has wrong lenth 16");
 });
 
