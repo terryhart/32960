@@ -32,14 +32,15 @@
   version "0.3.9"
   resolved "https://registry.yarnpkg.com/@36node/telegram/-/telegram-0.3.9.tgz#04763243224a3292efb6d61decb15e786607839c"
 
-"@36node/whisper@^0.1.3":
-  version "0.1.3"
-  resolved "https://registry.yarnpkg.com/@36node/whisper/-/whisper-0.1.3.tgz#137ae6a51cb41544fbe1a3b681c20c7275ecd404"
+"@36node/whisper@^0.1.4":
+  version "0.1.4"
+  resolved "https://registry.yarnpkg.com/@36node/whisper/-/whisper-0.1.4.tgz#3d60e3a1f43436fb5fd44a9c91ed6aed491a2528"
   dependencies:
     debug "^3.1.0"
     delegates "^1.0.0"
     koa-compose "^4.1.0"
     only "^0.0.2"
+    serialize-error "^3.0.0"
     shortid "^2.2.12"
 
 "@babel/code-frame@^7.0.0", "@babel/code-frame@^7.0.0-beta.35":
@@ -5142,6 +5143,10 @@ semver@5.5.0:
 semver@^5.0.3:
   version "5.6.0"
   resolved "https://registry.yarnpkg.com/semver/-/semver-5.6.0.tgz#7e74256fbaa49c75aa7c7a205cc22799cac80004"
+
+serialize-error@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/serialize-error/-/serialize-error-3.0.0.tgz#80100282b09be33c611536f50033481cb9cc87cf"
 
 set-blocking@^2.0.0, set-blocking@~2.0.0:
   version "2.0.0"
