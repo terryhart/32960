@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.4.1"></a>
+## [0.4.1](https://github.com/36node/32960/compare/v0.4.0...v0.4.1) (2018-11-15)
+
+
+### Bug Fixes
+
+* more ([5f55958](https://github.com/36node/32960/commit/5f55958))
+* no multi stack err ([66a9e55](https://github.com/36node/32960/commit/66a9e55))
+
+
+
 <a name="0.4.0"></a>
 # [0.4.0](https://github.com/36node/32960/compare/v0.3.8...v0.4.0) (2018-11-10)
 
