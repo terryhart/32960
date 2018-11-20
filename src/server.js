@@ -4,6 +4,8 @@ import Protocol from "./protocol";
 import { AUTH } from "./config";
 import tcpcopy from "./tcpcopy";
 import logger from "./logger";
+import BufferQueue from "./BufferQueue";
+import { HEADER_LENGTH } from "./constants";
 
 const app = new Whisper();
 const protocol = new Protocol();
@@ -71,20 +73,31 @@ const logHandler = async (ctx, next) => {
  * 处理整个包，可能有粘帧
  */
 const packetHandler = async (ctx, next) => {
-  const length = protocol.len(ctx.data);
-  let rest;
-
-  if (length < ctx.data.length) {
-    rest = ctx.data.slice(length);
-    ctx.data = ctx.data.slice(0, length);
+  if (!ctx.session.state.queue) {
+    ctx.session.state.queue = new BufferQueue();
   }
+  const queue = ctx.session.state.queue;
+  queue.push(ctx.data);
+
+  // 如果队列中剩余Buffer小于Header的长度，直接返回
+  if (!queue.has(HEADER_LENGTH)) {
+    return;
+  }
+
+  const length = protocol.len(queue.first(HEADER_LENGTH));
+
+  // 如果队列中的Buffer小于整个Packet的长度，直接返回
+  if (!queue.has(length)) {
+    return;
+  }
+
+  // 从Queue中取出完整的数据包
+  ctx.data = queue.shift(length);
 
   await next();
 
-  // 处理包中是否有粘帧，如果有多帧，解开
-  if (rest && rest.length > 0) {
-    ctx.socket.emit("data", rest);
-  }
+  // 把队列中多余的数据，作为一个新的data事件抛出
+  ctx.socket.emit("data", queue.drain());
 };
 
 /**
