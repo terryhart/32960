@@ -5,7 +5,7 @@ import { AUTH } from "./config";
 import tcpcopy from "./tcpcopy";
 import logger from "./logger";
 import BufferQueue from "./BufferQueue";
-import { HEADER_LENGTH } from "./constants";
+import { HEADER_LENGTH, MAX_LENGTH } from "./constants";
 
 const app = new Whisper();
 const protocol = new Protocol();
@@ -73,31 +73,57 @@ const logHandler = async (ctx, next) => {
  * 处理整个包，可能有粘帧
  */
 const packetHandler = async (ctx, next) => {
+  function reset() {
+    queue.empty();
+    ctx.session.state.partial = false;
+  }
+
   if (!ctx.session.state.queue) {
     ctx.session.state.queue = new BufferQueue();
+    ctx.session.state.partial = false;
   }
-  const queue = ctx.session.state.queue;
+
+  const { queue } = ctx.session.state;
   queue.push(ctx.data);
 
   // 如果队列中剩余Buffer小于Header的长度，直接返回
   if (!queue.has(HEADER_LENGTH)) {
+    ctx.session.state.partial = true;
     return;
   }
 
+  const header = queue.first(HEADER_LENGTH);
+  if (!protocol.isValidHeader(header)) {
+    logger.error("Invalid Header", header, ctx.session.state.partial);
+    return reset();
+  }
   const length = protocol.len(queue.first(HEADER_LENGTH));
+
+  // 避免Length过于巨大
+  if (length > MAX_LENGTH) {
+    return reset();
+  }
 
   // 如果队列中的Buffer小于整个Packet的长度，直接返回
   if (!queue.has(length)) {
+    ctx.session.state.partial = true;
     return;
   }
 
   // 从Queue中取出完整的数据包
   ctx.data = queue.shift(length);
+  if (!protocol.isValidPacket(ctx.data)) {
+    logger.error("Invalid Packet", ctx.data, ctx.session.state.partial);
+    return reset();
+  }
+  ctx.session.state.partial = false;
 
   await next();
 
   // 把队列中多余的数据，作为一个新的data事件抛出
-  ctx.socket.emit("data", queue.drain());
+  if (queue.length > 0) {
+    ctx.socket.emit("data", queue.drain());
+  }
 };
 
 /**

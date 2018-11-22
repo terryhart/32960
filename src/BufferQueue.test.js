@@ -22,6 +22,10 @@ describe("#BufferQueue", () => {
     expect(queue.has(100)).toBe(false);
   });
 
+  it("should get first one byte", () => {
+    expect(queue.first(1).toString("hex")).toBe("01");
+  });
+
   it("should shift one byte", () => {
     const buf = queue.shift(1);
     expect(buf.toString("hex")).toBe("01");
@@ -55,5 +59,13 @@ describe("#BufferQueue", () => {
     queue.push(Buffer.from("0102030405", "hex"));
     expect(queue.drain().toString("hex")).toBe("0102030405");
     expect(queue.length).toBe(0);
+  });
+
+  it("should combine and get first", () => {
+    queue.push(Buffer.from("0102030405", "hex"));
+    queue.push(Buffer.from("0102030405", "hex"));
+    expect(queue.first(6).toString("hex")).toBe("010203040501");
+    expect(queue._buffers.length).toBe(1);
+    expect(queue.drain().toString("hex")).toBe("01020304050102030405");
   });
 });

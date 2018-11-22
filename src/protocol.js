@@ -36,19 +36,15 @@ export default class Protocol {
    * @returns {object} 返回 json
    */
   parse(buf) {
-    if (buf[0] !== 0x23 && buf[1] !== 0x23) {
-      throw new Error("Packet not start with ##");
-    }
-
-    if (this.len(buf) > buf.length) {
-      throw new Error("The length of data is not expected.");
-    }
-
-    if (this.bcc(buf) !== buf[this.len(buf) - 1]) {
-      throw new Error("XOR checksum error.");
-    }
-
     return parser.decompress(buf);
+  }
+
+  isValidHeader(buf) {
+    return buf[0] === 0x23 && buf[1] === 0x23;
+  }
+
+  isValidPacket(buf) {
+    return this.len(buf) === buf.length && this.bcc(buf) === buf(this.len(buf) - 1);
   }
 
   /**

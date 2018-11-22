@@ -94,3 +94,5 @@ export const REPORT = {
 };
 
 export const HEADER_LENGTH = 24;
+
+export const MAX_LENGTH = 100 * 1024; // 100KB
