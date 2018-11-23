@@ -3,7 +3,7 @@ import * as cs from "./constants";
 
 export default class Protocol {
   HEADER_LENGTH = 24;
-  MAX_LENGTH = 100 * 1024; // 100KB
+  MAX_LENGTH = 65531; // 60KB
 
   constructor(encrypt = false) {
     this.encrypt = encrypt;

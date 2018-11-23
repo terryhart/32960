@@ -11,7 +11,8 @@ const protocol = new Protocol();
 
 function hexify(buf) {
   if (buf && buf instanceof Buffer) {
-    return buf.toString("hex");
+    if (buf.length > protocol.MAX_LENGTH) return "data extend max length";
+    return buf.toString("hex"); // 最多打印10000个字节
   }
   return buf;
 }
