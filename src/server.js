@@ -2,7 +2,7 @@ import Whisper from "@36node/whisper";
 import Protocol from "./protocol";
 
 import { AUTH } from "./config";
-import tcpcopy from "./tcpcopy";
+// import tcpcopy from "./tcpcopy";
 import logger from "./logger";
 import BufferQueue from "./BufferQueue";
 
@@ -11,7 +11,7 @@ const protocol = new Protocol();
 
 function hexify(buf) {
   if (buf && buf instanceof Buffer) {
-    if (buf.length > protocol.MAX_LENGTH) return "data extend max length";
+    if (buf.length > 10000) return "data extend max length";
     return buf.toString("hex"); // 最多打印10000个字节
   }
   return buf;
@@ -136,7 +136,7 @@ const frameHandler = (ctx, next) => {
       ctx.res = protocol.respond(ctx.req, ctx.data);
     }
   } catch (err) {
-    // ctx.res = protocol.respondError(ctx.data);
+    ctx.res = protocol.respondError(ctx.data);
     throw err;
   }
 
@@ -145,7 +145,7 @@ const frameHandler = (ctx, next) => {
 
 // app.use(tcpcopy);
 app.use(logHandler);
-// app.use(packetHandler);
+app.use(packetHandler);
 app.use(frameHandler);
 
 app.on("close", session => {

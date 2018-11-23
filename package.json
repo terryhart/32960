@@ -23,7 +23,7 @@
     "format": "prettier --trailing-comma es5 --write",
     "lint": "eslint src",
     "release": "standard-version && git push --follow-tags origin master",
-    "start": "nodemon src/cli.js --watch src --delay 1500ms --exec 'babel-node' | pino-pretty -c -t",
+    "start": "nodemon src/cli.js --watch src --delay 1500ms --exec 'babel-node' | pino-pretty -c -t -e",
     "server": "node dist/cli.js",
     "test": "jest --silent --detectOpenHandles --forceExit"
   },
