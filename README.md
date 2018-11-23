@@ -1,14 +1,14 @@
-# module
+# @36node/32960
 
-[![NPM version](https://img.shields.io/npm/v/module.svg?style=flat)](https://npmjs.com/package/module)
-[![NPM downloads](https://img.shields.io/npm/dm/module.svg?style=flat)](https://npmjs.com/package/module)
-[![CircleCI](https://circleci.com/gh/36node/module/tree/master.svg?style=shield)](https://circleci.com/gh/36node/module/tree/master)
-[![codecov](https://codecov.io/gh/36node/module/branch/master/graph/badge.svg)](https://codecov.io/gh/36node/module)
+[![NPM version](https://img.shields.io/npm/v/@36node/32960.svg?style=flat)](https://npmjs.com/package/@36node/32960)
+[![NPM downloads](https://img.shields.io/npm/dm/@36node/32960.svg?style=flat)](https://npmjs.com/package/@36node/32960)
+[![CircleCI](https://circleci.com/gh/36node/@36node/32960/tree/master.svg?style=shield)](https://circleci.com/gh/36node/@36node/32960/tree/master)
+[![codecov](https://codecov.io/gh/36node/@36node/32960/branch/master/graph/badge.svg)](https://codecov.io/gh/36node/@36node/32960)
 [![donate](https://img.shields.io/badge/$-donate-ff69b4.svg?maxAge=2592000&style=flat)](https://github.com/36node/donate)
 
 ## Usage
 
-### use this module as a parser or builder
+### use this @36node/32960 as a parser or builder
 
 ```js
 import { Protocol } from "@36node/protocol-32960";
@@ -55,8 +55,8 @@ please follow the code in `src/server.js`
 
 ## Author
 
-**module** © [36node](https://github.com/36node), Released under the [MIT](./LICENSE) License.
+**@36node/32960** © [36node](https://github.com/36node), Released under the [MIT](./LICENSE) License.
 
-Authored and maintained by 36node with help from contributors ([list](https://github.com/36node/module/contributors)).
+Authored and maintained by 36node with help from contributors ([list](https://github.com/36node/@36node/32960/contributors)).
 
 > [github.com/zzswang](https://github.com/zzswang) · GitHub [@36node](https://github.com/36node)
