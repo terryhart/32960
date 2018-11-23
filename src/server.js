@@ -10,11 +10,15 @@ const app = new Whisper();
 const protocol = new Protocol();
 
 function hexify(buf) {
-  if (buf && buf instanceof Buffer) {
+  if (!buf) {
+    return buf;
+  }
+  if (buf instanceof Buffer) {
     if (buf.length > 10000) return "data extend max length";
     return buf.toString("hex"); // 最多打印10000个字节
+  } else {
+    return "not a buffer";
   }
-  return "not a buffer";
 }
 
 /**
@@ -41,6 +45,7 @@ const logHandler = async (ctx, next) => {
     const startedAt = Date.now();
     await next();
     const endAt = Date.now();
+    if (!ctx.res) return;
     logger.info(
       {
         session: ctx.session.id,
