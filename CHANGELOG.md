@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.5.0"></a>
+# [0.5.0](https://github.com/36node/32960/compare/v0.4.1...v0.5.0) (2018-11-23)
+
+
+### Bug Fixes
+
+* fix edge case, check valid at packet handler ([2bfc9cc](https://github.com/36node/32960/commit/2bfc9cc))
+* partial packet ([ca36480](https://github.com/36node/32960/commit/ca36480))
+
+
+### Features
+
+* support split tcp packet ([950e6a1](https://github.com/36node/32960/commit/950e6a1))
+
+
+
 <a name="0.4.1"></a>
 ## [0.4.1](https://github.com/36node/32960/compare/v0.4.0...v0.4.1) (2018-11-15)
 
