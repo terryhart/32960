@@ -1,5 +1,4 @@
 import Protocol from "./protocol";
-import * as cs from "./constants";
 
 const protocol = new Protocol();
 

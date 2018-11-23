@@ -14,7 +14,7 @@ function hexify(buf) {
     if (buf.length > 10000) return "data extend max length";
     return buf.toString("hex"); // 最多打印10000个字节
   }
-  return buf;
+  return "not a buffer";
 }
 
 /**
