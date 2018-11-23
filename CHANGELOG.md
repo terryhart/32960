@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.5.3"></a>
+## [0.5.3](https://github.com/36node/32960/compare/v0.5.2...v0.5.3) (2018-11-23)
+
+
+### Bug Fixes
+
+* stop tcp copy ([218bffc](https://github.com/36node/32960/commit/218bffc))
+
+
+
 <a name="0.5.2"></a>
 ## [0.5.2](https://github.com/36node/32960/compare/v0.5.1...v0.5.2) (2018-11-23)
 
