@@ -148,7 +148,7 @@ const frameHandler = (ctx, next) => {
 
 // app.use(tcpcopy);
 app.use(logHandler);
-app.use(packetHandler);
+// app.use(packetHandler);
 app.use(frameHandler);
 
 app.on("close", session => {
