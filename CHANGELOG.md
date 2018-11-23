@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.5.10"></a>
+## [0.5.10](https://github.com/36node/32960/compare/v0.5.9...v0.5.10) (2018-11-23)
+
+
+### Bug Fixes
+
+* hexify directly return if buf is empty ([031b37f](https://github.com/36node/32960/commit/031b37f))
+* need log ctx whenever had response ([b4fee83](https://github.com/36node/32960/commit/b4fee83))
+
+
+
 <a name="0.5.9"></a>
 ## [0.5.9](https://github.com/36node/32960/compare/v0.5.8...v0.5.9) (2018-11-23)
 
