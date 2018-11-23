@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.5.4"></a>
+## [0.5.4](https://github.com/36node/32960/compare/v0.5.3...v0.5.4) (2018-11-23)
+
+
+### Bug Fixes
+
+* stop response err to platform ([9d1a04a](https://github.com/36node/32960/commit/9d1a04a))
+
+
+
 <a name="0.5.3"></a>
 ## [0.5.3](https://github.com/36node/32960/compare/v0.5.2...v0.5.3) (2018-11-23)
 
