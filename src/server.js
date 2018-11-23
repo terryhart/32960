@@ -104,6 +104,7 @@ const packetHandler = async (ctx, next) => {
 
   // 把队列中多余的数据，作为一个新的data事件抛出
   if (queue.length > 0) {
+    logger.info("more data in buffer queue");
     ctx.socket.emit("data", queue.drain());
   }
 };
