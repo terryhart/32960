@@ -32,9 +32,9 @@
   version "0.3.9"
   resolved "https://registry.yarnpkg.com/@36node/telegram/-/telegram-0.3.9.tgz#04763243224a3292efb6d61decb15e786607839c"
 
-"@36node/whisper@^0.1.4":
-  version "0.1.4"
-  resolved "https://registry.yarnpkg.com/@36node/whisper/-/whisper-0.1.4.tgz#3d60e3a1f43436fb5fd44a9c91ed6aed491a2528"
+"@36node/whisper@^0.1.5":
+  version "0.1.5"
+  resolved "http://registry.npm.taobao.org/@36node/whisper/download/@36node/whisper-0.1.5.tgz#ab50cea7535ec86efdefa209fb92300d8db25dad"
   dependencies:
     debug "^3.1.0"
     delegates "^1.0.0"
