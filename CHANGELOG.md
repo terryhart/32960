@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.5.9"></a>
+## [0.5.9](https://github.com/36node/32960/compare/v0.5.8...v0.5.9) (2018-11-23)
+
+
+### Bug Fixes
+
+* hexify log not a buffer ([fcef49b](https://github.com/36node/32960/commit/fcef49b))
+
+
+
 <a name="0.5.8"></a>
 ## [0.5.8](https://github.com/36node/32960/compare/v0.5.7...v0.5.8) (2018-11-23)
 
