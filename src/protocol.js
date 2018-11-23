@@ -2,6 +2,9 @@ import parser from "./parser";
 import * as cs from "./constants";
 
 export default class Protocol {
+  HEADER_LENGTH = 24;
+  MAX_LENGTH = 100 * 1024; // 100KB
+
   constructor(encrypt = false) {
     this.encrypt = encrypt;
   }
@@ -36,28 +39,36 @@ export default class Protocol {
    * @returns {object} 返回 json
    */
   parse(buf) {
+    if (!this.isValid(buf)) throw new Error("Invalid packet");
     return parser.decompress(buf);
   }
 
+  /**
+   * 检查头部是否正确
+   *
+   * @param {Buffer} buf 二进制数据包
+   */
   isValidHeader(buf) {
-    return buf[0] === 0x23 && buf[1] === 0x23;
-  }
-
-  isValidPacket(buf) {
-    return this.len(buf) === buf.length && this.bcc(buf) === buf(this.len(buf) - 1);
+    return (
+      buf[0] === 0x23 &&
+      buf[1] === 0x23 &&
+      buf.length === this.HEADER_LENGTH &&
+      this.len(buf) < this.MAX_LENGTH
+    );
   }
 
   /**
-   * 解开粘帧
+   * 检查数据包格式是否正确
    *
-   * @param {Buffer} buf 二进制数据
-   * @returns {Buffer|void} 如果没有粘帧，则返回 undefined
+   * @param {Buffer} buf 二进制数据包
    */
-  deSticky(buf) {
-    const length = this.len(buf);
-    if (length < buf.length) {
-      return buf.slice(length);
-    }
+  isValid(buf) {
+    const header = buf.slice(0, this.HEADER_LENGTH);
+    return (
+      this.isValidHeader(header) &&
+      this.len(buf) === buf.length &&
+      this.bcc(buf) === buf[this.len(buf) - 1]
+    );
   }
 
   /**

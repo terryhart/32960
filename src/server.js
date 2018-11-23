@@ -5,7 +5,6 @@ import { AUTH } from "./config";
 import tcpcopy from "./tcpcopy";
 import logger from "./logger";
 import BufferQueue from "./BufferQueue";
-import { HEADER_LENGTH, MAX_LENGTH } from "./constants";
 
 const app = new Whisper();
 const protocol = new Protocol();
@@ -45,8 +44,10 @@ const logHandler = async (ctx, next) => {
       {
         session: ctx.session.id,
         seq: ctx.no,
+        partial: !!ctx.state.partial,
         cost: endAt - startedAt,
-        origin: hexify(ctx.data),
+        data: hexify(ctx.data),
+        origin: ctx.state.partial ? hexify(ctx.state.origin) : undefined,
         request: ctx.req,
         response: hexify(ctx.res),
       },
@@ -57,12 +58,13 @@ const logHandler = async (ctx, next) => {
       {
         session: ctx.session.id,
         seq: ctx.no,
+        partial: !!ctx.state.partial,
         error: {
           type: err.constructor.name,
           message: err.message,
           stack: err.stack,
         },
-        origin: hexify(ctx.data),
+        data: hexify(ctx.data),
       },
       "handle tbox data failed"
     );
@@ -73,50 +75,29 @@ const logHandler = async (ctx, next) => {
  * 处理整个包，可能有粘帧
  */
 const packetHandler = async (ctx, next) => {
-  function reset() {
-    queue.empty();
-    ctx.session.state.partial = false;
-  }
-
-  if (!ctx.session.state.queue) {
-    ctx.session.state.queue = new BufferQueue();
-    ctx.session.state.partial = false;
-  }
-
-  const { queue } = ctx.session.state;
+  const { session, state } = ctx;
+  const queue = (session.queue = session.queue || new BufferQueue());
   queue.push(ctx.data);
+  state.partial = true;
 
-  // 如果队列中剩余Buffer小于Header的长度，直接返回
-  if (!queue.has(HEADER_LENGTH)) {
-    ctx.session.state.partial = true;
-    return;
-  }
+  // 分包: 当前 header 长度不够
+  if (!queue.has(protocol.HEADER_LENGTH)) return;
 
-  const header = queue.first(HEADER_LENGTH);
+  // 非32960包
+  const header = queue.first(protocol.HEADER_LENGTH);
   if (!protocol.isValidHeader(header)) {
-    logger.error("Invalid Header", header, ctx.session.state.partial);
-    return reset();
-  }
-  const length = protocol.len(queue.first(HEADER_LENGTH));
-
-  // 避免Length过于巨大
-  if (length > MAX_LENGTH) {
-    return reset();
+    queue.empty();
+    throw new Error("Invalid Header");
   }
 
-  // 如果队列中的Buffer小于整个Packet的长度，直接返回
-  if (!queue.has(length)) {
-    ctx.session.state.partial = true;
-    return;
-  }
+  // 分包: 当前包长度不够
+  const length = protocol.len(header);
+  if (!queue.has(length)) return;
 
-  // 从Queue中取出完整的数据包
+  // 进入包处理流程
+  state.origin = ctx.data;
   ctx.data = queue.shift(length);
-  if (!protocol.isValidPacket(ctx.data)) {
-    logger.error("Invalid Packet", ctx.data, ctx.session.state.partial);
-    return reset();
-  }
-  ctx.session.state.partial = false;
+  state.partial = ctx.data !== state.origin; // 判断是否分包
 
   await next();
 

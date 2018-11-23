@@ -92,7 +92,3 @@ export const REPORT = {
   CUSTOM_EXT: "CUSTOM_EXT",
   TEN_SECONDS: "TEN_SECONDS",
 };
-
-export const HEADER_LENGTH = 24;
-
-export const MAX_LENGTH = 100 * 1024; // 100KB
