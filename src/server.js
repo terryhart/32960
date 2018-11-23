@@ -136,7 +136,10 @@ const frameHandler = (ctx, next) => {
       ctx.res = protocol.respond(ctx.req, ctx.data);
     }
   } catch (err) {
-    ctx.res = protocol.respondError(ctx.data);
+    // 平台不应答错误包
+    if (!ctx.session.platform) {
+      ctx.res = protocol.respondError(ctx.data);
+    }
     throw err;
   }
 
