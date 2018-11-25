@@ -315,6 +315,51 @@ it("10 Seconds", () => {
   });
 });
 
+it("ADAS", () => {
+  const buf = Buffer.from(
+    "232303fe414354494143533230313831303130303101010b120b160b1019820100020003000004271005000678070008f409000a000b000c000100020003000004271005000678070008f409000a000b000c000100020003000004271005000678070008f409000a000b000c000100020003000004271005000678070008f409000a000b000c000100020003000004271005000678070008f409000a000b000c000100020003000004271005000678070008f409000a000b000c000100020003000004271005000678070008f409000a000b000c000100020003000004271005000678070008f409000a000b000c000100020003000004271005000678070008f409000a000b000c000100020003000004271005000678070008f409000a000b000c003d",
+    "hex"
+  );
+  const req = protocol.parse(buf);
+  const adas = {
+    accPedal: 0,
+    brake: 0,
+    speed: 0,
+    totalCurrent: 9000,
+    overSpeed: 0,
+    lateralDistance: 10.8,
+    verticalDistance: -1.2,
+    relativeVelocity: 19.4,
+    wheelWarning: false,
+    buzzerWarning: false,
+    pWarning: false,
+    rWarning: false,
+    lWarning: false,
+    cWarning: false,
+    cmcs: undefined,
+    reserved: 0,
+    crbs: false,
+    cmcsLevel: 0,
+    obstacleType: undefined,
+  };
+  expect(req).toEqual({
+    command: "REISSUE_REPORT",
+    flag: "COMMAND",
+    vin: "ACTIACS2018101001",
+    encrypt: "NONE",
+    length: 267,
+    body: {
+      at: new Date("2018-11-22T03:16:25.000Z"),
+      items: [
+        {
+          type: "ADAS",
+          datas: [adas, adas, adas, adas, adas, adas, adas, adas, adas, adas],
+        },
+      ],
+    },
+  });
+});
+
 it("Response Heart Beat", () => {
   const buf = Buffer.from("232307FE4838323230363530303030303030303030010000BB", "hex");
   const req = protocol.parse(buf);
