@@ -39,8 +39,8 @@ function toNumber(res = 1, offset = 0, abnormal = 0xfe, invalid = 0xff) {
         return undefined;
       default:
         return new Decimal(val)
-          .plus(offset)
           .times(res)
+          .plus(offset)
           .toNumber();
     }
   };
@@ -102,7 +102,7 @@ info[cs.REPORT.VEHICLE] = new Telegram()
   .uint16("speed", { formatter: toNumber(0.1, 0, 0xfffe, 0xffff) }) // 车速
   .uint32("mileage", { formatter: toNumber(0.1, 0, 0xfffffffe, 0xffffffff) }) // 累计里程
   .uint16("voltage", { formatter: toNumber(0.1, 0, 0xfffe, 0xffff) }) // 总电压
-  .uint16("current", { formatter: toNumber(0.1, -10000, 0xfffe, 0xffff) }) // 总电流
+  .uint16("current", { formatter: toNumber(0.1, -1000, 0xfffe, 0xffff) }) // 总电流
   .uint8("soc", { formatter: toNumber(0.01) }) // SOC
   .uint8("dcStatus", { formatter: toEnum1(...Object.keys(cs.DC_STATUS)) }) // DC-DC 状态
   .uint8("shift", { formatter: toShift() }) // 档位
@@ -120,10 +120,10 @@ info[cs.REPORT.MOTOR] = new Telegram()
       .uint8("status", { formatter: toEnum1(...Object.keys(cs.MOTOR_STATUS)) }) // 驱动电机状态
       .uint8("controlTemp", { formatter: toNumber(1, -40) }) // 驱动电机控制器温度
       .uint16("speed", { formatter: toNumber(1, -20000, 0xfffe, 0xffff) }) // 驱动电机转速
-      .uint16("torque", { formatter: toNumber(0.1, -20000, 0xfffe, 0xffff) }) // 驱动电机转矩 (-2000 ~ 4553.1)
+      .uint16("torque", { formatter: toNumber(0.1, -2000, 0xfffe, 0xffff) }) // 驱动电机转矩 (-2000 ~ 4553.1)
       .uint8("temp", { formatter: toNumber(1, -40) }) // 驱动电机温度
       .uint16("voltage", { formatter: toNumber(0.1, 0, 0xfffe, 0xffff) }) // 电机控制器输入电压
-      .uint16("current", { formatter: toNumber(0.1, -10000, 0xfffe, 0xffff) }), // 电机控制器直流母线电流
+      .uint16("current", { formatter: toNumber(0.1, -1000, 0xfffe, 0xffff) }), // 电机控制器直流母线电流
   });
 
 info[cs.REPORT.FUELCELL] = new Telegram()
@@ -137,7 +137,7 @@ info[cs.REPORT.FUELCELL] = new Telegram()
     length: "probeCount",
     formatter: arr => arr.map(toNumber(1, -40)),
   }) // 探针温度值
-  .uint16("maxNtc", { formatter: toNumber(0.1, -400, 0xfffe, 0xffff) }) // 氢系统中最高温度
+  .uint16("maxNtc", { formatter: toNumber(0.1, -40, 0xfffe, 0xffff) }) // 氢系统中最高温度
   .uint8("maxNtcNo", { formatter: toNumber() }) // 氢系统中最高温度探针代号
   .uint16("hcOfh", { formatter: toNumber(1, 0, 0xfffe, 0xffff) }) // 氢气最高浓度 Highest concentration of hydrogen
   .uint8("hcOfhNo", { formatter: toNumber() }) // 氢气最高浓度传感器代号 Highest concentration of hydrogen
@@ -223,7 +223,7 @@ info[cs.REPORT.RESS_VOLTAGE] = new Telegram()
     type: new Telegram()
       .uint8("no") // 可充电储能子系统编号
       .uint16("voltage", { formatter: toNumber(0.1, 0, 0xfffe, 0xffff) }) // 可充电储能装置电压
-      .uint16("current", { formatter: toNumber(0.1, -10000, 0xfffe, 0xffff) }) // 可充电储能装置电流
+      .uint16("current", { formatter: toNumber(0.1, -1000, 0xfffe, 0xffff) }) // 可充电储能装置电流
       .uint16("batteryCount") // 单体电池总数
       .uint16("frameStartBatteryNo") // 本帧起始电池序号
       .uint8("frameBatteryCount") // 本帧单体电池总数
@@ -260,8 +260,8 @@ info[cs.REPORT.CUSTOM_EXT] = new Telegram()
   .uint8("pressure1", { formatter: toNumber(4) }) // 气压1
   .uint8("pressure2", { formatter: toNumber(4) }) // 气压2
   .uint8("batteryVoltage", { formatter: toNumber(0.5) }) // 蓄电池电压
-  .uint16("dcov", { formatter: toNumber(0.1, -10000) }) // // DCDC输出电压
-  .uint16("dcoc", { formatter: toNumber(0.1, -10000, 0xfffe, 0xffff) }) // DCDC输出电流
+  .uint16("dcov", { formatter: toNumber(0.1, -1000) }) // // DCDC输出电压
+  .uint16("dcoc", { formatter: toNumber(0.1, -1000, 0xfffe, 0xffff) }) // DCDC输出电流
   .uint8("dcTemp", { formatter: toNumber(1, -40) }) // DCDC散热器温度
   .uint8("acTemp", { formatter: toNumber(1, -40) }) // DCAC散热器温度
   .uint8("lftp", { formatter: toNumber(4) }) // 左前轮胎压力
@@ -277,7 +277,7 @@ info[cs.REPORT.CUSTOM_EXT] = new Telegram()
   .uint8("rr2tp", { formatter: toNumber(4) }) // 右后 2 轮胎压力
   .uint8("rr2tt", { formatter: toNumber(1, -40) }) // 右后 2 轮胎温度
   .uint16("cv", { formatter: toNumber(0.1, 0, 0xfffe, 0xffff) }) // 充电电压
-  .uint16("rc", { formatter: toNumber(0.1, -10000, 0xfffe, 0xffff) }) // 充电电流
+  .uint16("rc", { formatter: toNumber(0.1, -1000, 0xfffe, 0xffff) }) // 充电电流
   .uint16("cp", { formatter: toNumber(0.1, 0, 0xfffe, 0xffff) }) // 充电电量
   .uint32("totalCharge", { formatter: toNumber(0.1, 0, 0xfffffffe, 0xffffffff) }) // 累积充电电量
   .uint32("totalDischarge", { formatter: toNumber(0.1, 0, 0xfffffffe, 0xffffffff) }) // 累积放电电量
@@ -328,7 +328,7 @@ info[cs.REPORT.ADAS] = new Telegram().endianess("big").array("datas", {
     .skip(1)
     .uint8("lateralDistance", { formatter: toNumber(0.1, -12) }) // 前方障碍物横向距离
     .skip(1)
-    .uint8("verticalDistance", { formatter: toNumber(0.1, -12) }) // 前方障碍物纵向距离
+    .uint8("verticalDistance", { formatter: toNumber(0.1) }) // 前方障碍物纵向距离
     .skip(1)
     .uint8("relativeVelocity", { formatter: toNumber(0.1, -50) }) // 与前方障碍物的相对速度
     .skip(1)
@@ -340,10 +340,10 @@ info[cs.REPORT.ADAS] = new Telegram().endianess("big").array("datas", {
     .bit2("lWarning", { formatter: toTrue }) // 左车道偏离预警
     .bit2("cWarning", { formatter: toTrue }) // 前方碰撞预警
     .skip(1)
-    .bit2("reserved")
-    .bit2("crbs", { formatter: toTrue }) // 碰撞缓解制动系统开关状态
-    .bit2("cmcs", { formatter: toEnum1(...Object.keys(cs.CMCS_STATUS)) }) // 碰撞缓解制动系统状态
     .bit2("cmcsLevel") // 碰撞缓解制动系统预警等级
+    .bit2("cmcs", { formatter: toEnum1(...Object.keys(cs.CMCS_STATUS)) }) // 碰撞缓解制动系统状态
+    .bit2("crbs", { formatter: toTrue }) // 碰撞缓解制动系统开关状态
+    .bit2("reserved")
     .skip(1)
     .uint8("obstacleType", { formatter: toEnum1(...Object.keys(cs.OBSTACLE_TYPE)) }), // 障碍物类型
 });

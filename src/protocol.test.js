@@ -327,20 +327,20 @@ it("ADAS", () => {
     speed: 0,
     totalCurrent: 9000,
     overSpeed: 0,
-    lateralDistance: 10.8,
-    verticalDistance: -1.2,
-    relativeVelocity: 19.4,
-    wheelWarning: false,
-    buzzerWarning: false,
-    pWarning: false,
-    rWarning: false,
-    lWarning: false,
-    cWarning: false,
-    cmcs: undefined,
+    lateralDistance: 0, // 前方障碍物横向距离
+    verticalDistance: 0, // 前方障碍物纵向距离
+    relativeVelocity: -25.6, // 与前方障碍物的相对速度
+    wheelWarning: false, // 方向盘振动器预警
+    buzzerWarning: false, // 蜂鸣器预警
+    pWarning: false, // 行人碰撞预警
+    rWarning: false, // 右车道偏离预警
+    lWarning: false, // 左车道偏离预警
+    cWarning: false, // 前方碰撞预警
+    cmcs: undefined, // 碰撞缓解制动系统状态
     reserved: 0,
-    crbs: false,
-    cmcsLevel: 0,
-    obstacleType: undefined,
+    crbs: false, // 碰撞缓解制动系统开关状态
+    cmcsLevel: 0, // 碰撞缓解制动系统预警等级
+    obstacleType: undefined, // 障碍物类型
   };
   expect(req).toEqual({
     command: "REISSUE_REPORT",

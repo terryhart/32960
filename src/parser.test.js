@@ -341,3 +341,43 @@ it("TenSeconds Data", () => {
     ],
   });
 });
+
+// 极值数据
+it("ADAS Data", () => {
+  const buf = Buffer.from(
+    "0100020003000004271005000678070008f409010a010b400c00" +
+      "0100020003000004271005000678070008f409010a010b400c00" +
+      "0100020003000004271005000678070008f409010a010b400c00" +
+      "0100020003000004271005000678070008f409010a010b400c00" +
+      "0100020003000004271005000678070008f409010a010b400c00" +
+      "0100020003000004271005000678070008f409010a010b400c00" +
+      "0100020003000004271005000678070008f409010a010b400c00" +
+      "0100020003000004271005000678070008f409010a010b400c00" +
+      "0100020003000004271005000678070008f409010a010b400c00" +
+      "0100020003000004271005000678070008f409010a010b400c00",
+    "hex"
+  );
+  const result = info[cs.REPORT.ADAS].decompress(buf);
+  const adas = {
+    accPedal: 0,
+    brake: 0,
+    speed: 0,
+    totalCurrent: 9000,
+    overSpeed: 0,
+    lateralDistance: 0, // 前方障碍物横向距离
+    verticalDistance: 0, // 前方障碍物纵向距离
+    relativeVelocity: -25.6, // 与前方障碍物的相对速度
+    wheelWarning: false, // 方向盘振动器预警
+    buzzerWarning: true, // 蜂鸣器预警
+    pWarning: false, // 行人碰撞预警
+    rWarning: false, // 右车道偏离预警
+    lWarning: false, // 左车道偏离预警
+    cWarning: true, // 前方碰撞预警
+    cmcs: undefined, // 碰撞缓解制动系统状态
+    reserved: 0,
+    crbs: false, // 碰撞缓解制动系统开关状态
+    cmcsLevel: 1, // 碰撞缓解制动系统预警等级
+    obstacleType: undefined, // 障碍物类型
+  };
+  expect(result).toEqual({ datas: [adas, adas, adas, adas, adas, adas, adas, adas, adas, adas] });
+});
