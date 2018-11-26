@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.6.0"></a>
+# [0.6.0](https://github.com/36node/32960/compare/v0.5.10...v0.6.0) (2018-11-26)
+
+
+### Features
+
+* adas ([89915d6](https://github.com/36node/32960/commit/89915d6))
+* adas ([53359f8](https://github.com/36node/32960/commit/53359f8))
+
+
+
 <a name="0.5.10"></a>
 ## [0.5.10](https://github.com/36node/32960/compare/v0.5.9...v0.5.10) (2018-11-23)
 

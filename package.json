@@ -1,6 +1,6 @@
 {
   "name": "@36node/protocol-32960",
-  "version": "0.5.10",
+  "version": "0.6.0",
   "description": "A tcp module/server for parsing 32960 protocol.",
   "repository": {
     "url": "36node/32960",
