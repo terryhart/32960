@@ -2,7 +2,7 @@ import Whisper from "@36node/whisper";
 import Protocol from "./protocol";
 
 import { AUTH } from "./config";
-// import tcpcopy from "./tcpcopy";
+import tcpcopy from "./tcpcopy";
 import logger from "./logger";
 import BufferQueue from "./BufferQueue";
 
@@ -141,7 +141,7 @@ const frameHandler = (ctx, next) => {
   return next();
 };
 
-// app.use(tcpcopy);
+app.use(tcpcopy);
 app.use(logHandler);
 app.use(packetHandler);
 app.use(frameHandler);
