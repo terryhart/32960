@@ -8,7 +8,6 @@ import BufferQueue from "./BufferQueue";
 
 const app = new Whisper();
 const protocol = new Protocol();
-app.silent = true; // silent for err log
 
 function hexify(buf) {
   if (buf && buf instanceof Buffer) {
@@ -153,6 +152,10 @@ app.on("close", session => {
 
 app.on("timeout", session => {
   logger.warn({ session: session.id }, "session timeout");
+});
+
+app.on("error", err => {
+  logger.error(err, "unhandled error");
 });
 
 export default app;
