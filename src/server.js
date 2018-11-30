@@ -155,7 +155,7 @@ app.on("timeout", session => {
 });
 
 app.on("error", err => {
-  logger.error(err, "unhandled error");
+  logger.error(err, "unhandled server error");
 });
 
 export default app;
