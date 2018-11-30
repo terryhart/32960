@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.6.7"></a>
+## [0.6.7](https://github.com/36node/32960/compare/v0.6.6...v0.6.7) (2018-11-30)
+
+
+### Bug Fixes
+
+* log unhandled error ([6cc169b](https://github.com/36node/32960/commit/6cc169b))
+* remove reset err ([3c3b4bd](https://github.com/36node/32960/commit/3c3b4bd))
+
+
+
 <a name="0.6.6"></a>
 ## [0.6.6](https://github.com/36node/32960/compare/v0.6.5...v0.6.6) (2018-11-30)
 
