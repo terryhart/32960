@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.6.5"></a>
+## [0.6.5](https://github.com/36node/32960/compare/v0.6.4...v0.6.5) (2018-11-30)
+
+
+### Bug Fixes
+
+* make whisper silent of error ([ee78d58](https://github.com/36node/32960/commit/ee78d58))
+
+
+
 <a name="0.6.4"></a>
 ## [0.6.4](https://github.com/36node/32960/compare/v0.6.3...v0.6.4) (2018-11-29)
 
