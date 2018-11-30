@@ -8,6 +8,7 @@ import BufferQueue from "./BufferQueue";
 
 const app = new Whisper();
 const protocol = new Protocol();
+app.silent = true; // silent for err log
 
 function hexify(buf) {
   if (buf && buf instanceof Buffer) {
@@ -141,7 +142,6 @@ const frameHandler = (ctx, next) => {
   return next();
 };
 
-app.silent = true;
 app.use(tcpcopy);
 app.use(logHandler);
 app.use(packetHandler);
