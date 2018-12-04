@@ -329,7 +329,7 @@ it("ADAS", () => {
     overSpeed: 0,
     lateralDistance: 0, // 前方障碍物横向距离
     verticalDistance: 0, // 前方障碍物纵向距离
-    relativeVelocity: -25.6, // 与前方障碍物的相对速度
+    relativeVelocity: 194, // 与前方障碍物的相对速度
     wheelWarning: false, // 方向盘振动器预警
     buzzerWarning: false, // 蜂鸣器预警
     pWarning: false, // 行人碰撞预警
