@@ -328,9 +328,9 @@ info[cs.REPORT.ADAS] = new Telegram().endianess("big").array("datas", {
     .skip(1)
     .uint8("lateralDistance", { formatter: toNumber(0.1, -12) }) // 前方障碍物横向距离
     .skip(1)
-    .uint8("verticalDistance", { formatter: toNumber(0.1) }) // 前方障碍物纵向距离
+    .uint8("verticalDistance", { formatter: toNumber(1) }) // 前方障碍物纵向距离
     .skip(1)
-    .uint8("relativeVelocity", { formatter: toNumber(0.1, -50) }) // 与前方障碍物的相对速度
+    .uint8("relativeVelocity", { formatter: toNumber(1, -50) }) // 与前方障碍物的相对速度
     .skip(1)
     .bit4("wheelWarning", { formatter: toTrue }) // 方向盘振动器预警
     .bit4("buzzerWarning", { formatter: toTrue }) // 蜂鸣器预警
