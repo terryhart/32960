@@ -345,7 +345,9 @@ info[cs.REPORT.ADAS] = new Telegram().endianess("big").array("datas", {
     .bit2("crbs", { formatter: toTrue }) // 碰撞缓解制动系统开关状态
     .bit2("reserved")
     .skip(1)
-    .uint8("obstacleType", { formatter: toEnum1(...Object.keys(cs.OBSTACLE_TYPE)) }), // 障碍物类型
+    .uint8("obstacleType", { formatter: toEnum1(...Object.keys(cs.OBSTACLE_TYPE)) }) // 障碍物类型
+    .skip(1)
+    .uint16("fault"), // ADAS 故障码
 });
 
 /**
