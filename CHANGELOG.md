@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.7.0"></a>
+# [0.7.0](https://github.com/36node/32960/compare/v0.6.10...v0.7.0) (2019-01-28)
+
+
+### Bug Fixes
+
+* add adas fault ([8e4045c](https://github.com/36node/32960/commit/8e4045c))
+
+
+### Features
+
+* add fakeClient for simulate ([#15](https://github.com/36node/32960/issues/15)) ([9456d0b](https://github.com/36node/32960/commit/9456d0b))
+* addADASdoc ([#18](https://github.com/36node/32960/issues/18)) ([3c3ceb4](https://github.com/36node/32960/commit/3c3ceb4))
+
+
+
 <a name="0.6.10"></a>
 ## [0.6.10](https://github.com/36node/32960/compare/v0.6.9...v0.6.10) (2018-12-04)
 
