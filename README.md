@@ -8,6 +8,8 @@
 
 ## Usage
 
+电动汽车 32960 协议服务端
+
 ### use this @36node/32960 as a parser or builder
 
 ```js
