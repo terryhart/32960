@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.7.2"></a>
+## [0.7.2](https://github.com/36node/32960/compare/v0.7.1...v0.7.2) (2019-02-21)
+
+
+### Bug Fixes
+
+* tmp remove origin printing ([231257b](https://github.com/36node/32960/commit/231257b))
+
+
+
 <a name="0.7.1"></a>
 ## [0.7.1](https://github.com/36node/32960/compare/v0.7.0...v0.7.1) (2019-01-31)
 
