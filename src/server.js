@@ -42,11 +42,12 @@ const logHandler = async (ctx, next) => {
     logger.info(
       {
         session: ctx.session.id,
+        platform: ctx.session.username,
         seq: ctx.no,
-        partial: !!ctx.state.partial,
         cost: endAt - startedAt,
         data: hexify(ctx.data),
-        origin: ctx.state.partial ? hexify(ctx.state.origin) : undefined,
+        // partial: !!ctx.state.partial,
+        // origin: ctx.state.partial ? hexify(ctx.state.origin) : undefined,
         request: ctx.req,
         response: hexify(ctx.res),
       },
@@ -56,8 +57,9 @@ const logHandler = async (ctx, next) => {
     logger.error(
       {
         session: ctx.session.id,
+        platform: ctx.session.username,
         seq: ctx.no,
-        partial: !!ctx.state.partial,
+        // partial: !!ctx.state.partial,
         error: {
           type: err.constructor.name,
           message: err.message,
@@ -77,7 +79,7 @@ const packetHandler = async (ctx, next) => {
   const { session, state } = ctx;
   const queue = (session.queue = session.queue || new BufferQueue());
   queue.push(ctx.data);
-  state.partial = true;
+  // state.partial = true;
 
   // 分包: 当前 header 长度不够
   if (!queue.has(protocol.HEADER_LENGTH)) return;
@@ -94,9 +96,9 @@ const packetHandler = async (ctx, next) => {
   if (!queue.has(length)) return;
 
   // 进入包处理流程
-  state.origin = ctx.data;
+  // state.origin = ctx.data;
   ctx.data = queue.shift(length);
-  state.partial = ctx.data !== state.origin; // 判断是否分包
+  // state.partial = ctx.data !== state.origin; // 判断是否分包
 
   await next();
 
