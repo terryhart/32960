@@ -143,7 +143,7 @@ const frameHandler = (ctx, next) => {
   return next();
 };
 
-app.use(tcpcopy);
+// app.use(tcpcopy);
 app.use(logHandler);
 app.use(packetHandler);
 app.use(frameHandler);
