@@ -33,9 +33,9 @@
   version "0.3.9"
   resolved "https://registry.yarnpkg.com/@36node/telegram/-/telegram-0.3.9.tgz#04763243224a3292efb6d61decb15e786607839c"
 
-"@36node/whisper@^0.1.10":
-  version "0.1.10"
-  resolved "https://registry.yarnpkg.com/@36node/whisper/-/whisper-0.1.10.tgz#dd471ba7e4fd6f17a9a5ded1d0772ead4d402363"
+"@36node/whisper@^0.1.11":
+  version "0.1.11"
+  resolved "https://registry.yarnpkg.com/@36node/whisper/-/whisper-0.1.11.tgz#879cf1010eb2b0dd67b2f7a4863e22a67410eff2"
   dependencies:
     debug "^4.1.1"
     delegates "^1.0.0"
