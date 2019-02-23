@@ -33,16 +33,16 @@
   version "0.3.9"
   resolved "https://registry.yarnpkg.com/@36node/telegram/-/telegram-0.3.9.tgz#04763243224a3292efb6d61decb15e786607839c"
 
-"@36node/whisper@^0.1.8":
-  version "0.1.8"
-  resolved "https://registry.yarnpkg.com/@36node/whisper/-/whisper-0.1.8.tgz#96f8dee16b53b6ce61b8c38f446dc374ed2370d1"
+"@36node/whisper@^0.1.10":
+  version "0.1.10"
+  resolved "https://registry.yarnpkg.com/@36node/whisper/-/whisper-0.1.10.tgz#dd471ba7e4fd6f17a9a5ded1d0772ead4d402363"
   dependencies:
-    debug "^3.1.0"
+    debug "^4.1.1"
     delegates "^1.0.0"
     koa-compose "^4.1.0"
+    nanoid "^2.0.1"
     only "^0.0.2"
     serialize-error "^3.0.0"
-    shortid "^2.2.12"
 
 "@babel/code-frame@^7.0.0-beta.35":
   version "7.0.0"
@@ -1832,6 +1832,12 @@ debug@^2.1.2, debug@^2.2.0, debug@^2.3.3, debug@^2.6.8, debug@^2.6.9:
 debug@^3.0.1, debug@^3.1.0:
   version "3.2.6"
   resolved "https://registry.yarnpkg.com/debug/-/debug-3.2.6.tgz#e83d17de16d8a7efb7717edbe5fb10135eee629b"
+  dependencies:
+    ms "^2.1.1"
+
+debug@^4.1.1:
+  version "4.1.1"
+  resolved "https://registry.yarnpkg.com/debug/-/debug-4.1.1.tgz#3b72260255109c6b589cee050f1d516139664791"
   dependencies:
     ms "^2.1.1"
 
@@ -4172,9 +4178,9 @@ nan@^2.9.2:
   version "2.11.1"
   resolved "https://registry.yarnpkg.com/nan/-/nan-2.11.1.tgz#90e22bccb8ca57ea4cd37cc83d3819b52eea6766"
 
-nanoid@^2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/nanoid/-/nanoid-2.0.0.tgz#e1ab4a4b024a38d15531ba34a712a201540de639"
+nanoid@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/nanoid/-/nanoid-2.0.1.tgz#deb55cac196e3f138071911dabbc3726eb048864"
 
 nanomatch@^1.2.9:
   version "1.2.13"
@@ -5202,12 +5208,6 @@ shebang-regex@^1.0.0:
 shellwords@^0.1.1:
   version "0.1.1"
   resolved "https://registry.yarnpkg.com/shellwords/-/shellwords-0.1.1.tgz#d6b9181c1a48d397324c84871efbcfc73fc0654b"
-
-shortid@^2.2.12:
-  version "2.2.14"
-  resolved "https://registry.yarnpkg.com/shortid/-/shortid-2.2.14.tgz#80db6aafcbc3e3a46850b3c88d39e051b84c8d18"
-  dependencies:
-    nanoid "^2.0.0"
 
 signal-exit@^3.0.0, signal-exit@^3.0.2:
   version "3.0.2"
