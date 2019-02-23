@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.7.4"></a>
+## [0.7.4](https://github.com/36node/32960/compare/v0.7.3...v0.7.4) (2019-02-23)
+
+
+### Bug Fixes
+
+* whisper update for longer session id ([9dcee1d](https://github.com/36node/32960/commit/9dcee1d))
+
+
+
 <a name="0.7.3"></a>
 ## [0.7.3](https://github.com/36node/32960/compare/v0.7.2...v0.7.3) (2019-02-21)
 
