@@ -47,6 +47,29 @@ whisper is a koa style tcp server, get more from [36node/whisper](https://github
 
 please follow the code in `src/server.js`
 
+### use parse
+
+Parse a hex binary data:
+
+```sh
+$ yarn parse -h
+
+Usage: parse [options]
+
+Parse binary message data
+
+Options:
+  -d, --data <data>        Binary hex data of message
+  -c, --copy_to_clipboard  Whether copy parsed result to clipboard
+  -h, --help               output usage information
+
+example:
+
+$ yarn parse -c  -d  232303fe4c53464430333230324a4330303136323701006b13020200210c81010002ff0300000423f5010002ff0300000423f3010002ff0300000423f3010002ff0300000423f3010002ff0300000423f3010002ff0300000423f6010002ff0300000423f5010002ff0300000423f5010002ff0300000423f3010002ff0300000423f30e
+
+
+```
+
 ## Contributing
 
 1. Fork it!

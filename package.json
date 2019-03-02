@@ -23,8 +23,9 @@
     "format": "prettier --trailing-comma es5 --write",
     "lint": "eslint src",
     "release": "standard-version && git push --follow-tags origin master",
-    "start": "nodemon src/cli.js --watch src --delay 1500ms --exec 'babel-node' | pino-pretty -c -t -e",
-    "server": "node dist/cli.js",
+    "start": "nodemon src/cli.js server --watch src --delay 1500ms --exec 'babel-node' | pino-pretty -c -t -e",
+    "server": "node dist/cli.js server",
+    "parse": "node dist/cli.js parse",
     "test": "jest --silent --detectOpenHandles --forceExit"
   },
   "commitlint": {
@@ -64,6 +65,8 @@
   "dependencies": {
     "@36node/telegram": "^0.3.9",
     "@36node/whisper": "^0.1.11",
+    "clipboardy": "^1.2.3",
+    "commander": "^2.19.0",
     "decimal.js": "^10.0.1",
     "dotenv": "^6.0.0",
     "only": "^0.0.2",
