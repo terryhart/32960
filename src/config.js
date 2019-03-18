@@ -43,5 +43,6 @@ export const AUTH = env("AUTH", { default: "yutong:121,shenwo:222" });
 /**
  * tcpcopy 目的地
  */
-export const DUP_HOST = env("DUP_HOST");
-export const DUP_PORT = env("DUP_PORT");
+export const DUP_DEST = env("DUP_DEST", { default: "" });
+export const DUP_HOST = env("DUP_HOST", { default: "" });
+export const DUP_PORT = env("DUP_PORT", { default: "" });

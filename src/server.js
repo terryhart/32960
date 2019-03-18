@@ -1,8 +1,8 @@
 import Whisper from "@36node/whisper";
 import Protocol from "./protocol";
 
-import { AUTH } from "./config";
-import tcpcopy from "./tcpcopy";
+import { AUTH, DUP_DEST, DUP_HOST, DUP_PORT } from "./config";
+import createTcpCopyMiddleware from "./tcpcopy";
 import logger from "./logger";
 import BufferQueue from "./BufferQueue";
 
@@ -145,7 +145,15 @@ const frameHandler = (ctx, next) => {
 
 app.use(logHandler);
 app.use(packetHandler);
-app.use(tcpcopy);
+if (DUP_HOST && DUP_PORT) {
+  app.use(createTcpCopyMiddleware(DUP_HOST, DUP_PORT));
+}
+DUP_DEST.split(",").forEach(dest => {
+  const [destHost, destPort] = dest.split(":");
+  if (destHost && destPort) {
+    app.use(createTcpCopyMiddleware(destHost, destPort));
+  }
+});
 app.use(frameHandler);
 
 app.on("close", session => {
