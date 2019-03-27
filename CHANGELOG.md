@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.8.0"></a>
+# [0.8.0](https://github.com/36node/32960/compare/v0.7.6...v0.8.0) (2019-03-27)
+
+
+### Bug Fixes
+
+* lock node version ([37abbe8](https://github.com/36node/32960/commit/37abbe8))
+
+
+### Features
+
+* cli.js support server and parse command ([#23](https://github.com/36node/32960/issues/23)) ([#24](https://github.com/36node/32960/issues/24)) ([d201caa](https://github.com/36node/32960/commit/d201caa))
+
+
+
 <a name="0.7.6"></a>
 ## [0.7.6](https://github.com/36node/32960/compare/v0.7.5...v0.7.6) (2019-02-25)
 
