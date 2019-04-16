@@ -94,5 +94,5 @@ export const REPORT = {
   ADAS: "ADAS",
 };
 
-export const CMCS_STATUS = { CLOSE: "CLOSE", ABNORMAL: "ABNORMAL" };
-export const OBSTACLE_TYPE = { PEOPLE: "PEOPLE", VEHICLE: "VEHICLE" };
+export const CMCS_STATUS = { NORMAL: "NORMAL", CLOSE: "CLOSE", ABNORMAL: "ABNORMAL" };
+export const OBSTACLE_TYPE = { VOID: "VOID", PEOPLE: "PEOPLE", VEHICLE: "VEHICLE" };

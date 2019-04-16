@@ -305,7 +305,7 @@ info[cs.REPORT.TEN_SECONDS] = new Telegram().endianess("big").array("datas", {
     .skip(1)
     .uint16("speed", { formatter: toNumber(0.1, 0, 0xfffe, 0xffff) }) // 车速
     .skip(1)
-    .uint16("totalCurrent", { formatter: toNumber(1, -1000, 0xfffe, 0xffff) }), // 总电流
+    .uint16("totalCurrent", { formatter: toNumber(0.1, -1000, 0xfffe, 0xffff) }), // 总电流
 });
 
 const toTrue = val => {
@@ -322,7 +322,7 @@ info[cs.REPORT.ADAS] = new Telegram().endianess("big").array("datas", {
     .skip(1)
     .uint16("speed", { formatter: toNumber(0.1, 0, 0xfffe, 0xffff) }) // 车速
     .skip(1)
-    .uint16("totalCurrent", { formatter: toNumber(1, -1000, 0xfffe, 0xffff) }) // 总电流
+    .uint16("totalCurrent", { formatter: toNumber(0.1, -1000, 0xfffe, 0xffff) }) // 总电流
     .skip(1)
     .uint8("overSpeed", { formatter: toNumber(5) }) // 超速值
     .skip(1)
@@ -341,13 +341,13 @@ info[cs.REPORT.ADAS] = new Telegram().endianess("big").array("datas", {
     .bit2("cWarning", { formatter: toTrue }) // 前方碰撞预警
     .skip(1)
     .bit2("cmcsLevel") // 碰撞缓解制动系统预警等级
-    .bit2("cmcs", { formatter: toEnum1(...Object.keys(cs.CMCS_STATUS)) }) // 碰撞缓解制动系统状态
+    .bit2("cmcs", { formatter: toEnum0(...Object.keys(cs.CMCS_STATUS)) }) // 碰撞缓解制动系统状态
     .bit2("crbs", { formatter: toTrue }) // 碰撞缓解制动系统开关状态
     .bit2("reserved")
     .skip(1)
-    .uint8("obstacleType", { formatter: toEnum1(...Object.keys(cs.OBSTACLE_TYPE)) }) // 障碍物类型
+    .uint8("obstacleType", { formatter: toEnum0(...Object.keys(cs.OBSTACLE_TYPE)) }) // 障碍物类型
     .skip(1)
-    .uint16("fault"), // ADAS 故障码
+    .uint16("fault"), // ADAS 故障码int
 });
 
 /**
