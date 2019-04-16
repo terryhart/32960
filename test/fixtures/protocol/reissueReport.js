@@ -2,7 +2,7 @@ const adas = {
   accPedal: 0,
   brake: 0,
   speed: 0,
-  totalCurrent: 0,
+  totalCurrent: -900,
   overSpeed: 0,
   lateralDistance: 0, // 前方障碍物横向距离
   verticalDistance: 0, // 前方障碍物纵向距离
@@ -13,12 +13,19 @@ const adas = {
   rWarning: false, // 右车道偏离预警
   lWarning: false, // 左车道偏离预警
   cWarning: false, // 前方碰撞预警
-  cmcs: undefined, // 碰撞缓解制动系统状态
+  cmcs: "NORMAL", // 碰撞缓解制动系统状态
   reserved: 0,
   crbs: false, // 碰撞缓解制动系统开关状态
   cmcsLevel: 0, // 碰撞缓解制动系统预警等级
-  obstacleType: undefined, // 障碍物类型
+  obstacleType: "VOID", // 障碍物类型
   fault: 16,
+};
+
+const ten = {
+  accPedal: 0,
+  brake: 0,
+  speed: 0,
+  totalCurrent: 0,
 };
 
 export default [
@@ -37,68 +44,7 @@ export default [
         items: [
           {
             type: "TEN_SECONDS",
-            datas: [
-              {
-                accPedal: 0,
-                brake: 0,
-                speed: 0,
-                totalCurrent: 9000,
-              },
-              {
-                accPedal: 0,
-                brake: 0,
-                speed: 0,
-                totalCurrent: 9000,
-              },
-              {
-                accPedal: 0,
-                brake: 0,
-                speed: 0,
-                totalCurrent: 9000,
-              },
-              {
-                accPedal: 0,
-                brake: 0,
-                speed: 0,
-                totalCurrent: 9000,
-              },
-              {
-                accPedal: 0,
-                brake: 0,
-                speed: 0,
-                totalCurrent: 9000,
-              },
-              {
-                accPedal: 0,
-                brake: 0,
-                speed: 0,
-                totalCurrent: 9000,
-              },
-              {
-                accPedal: 0,
-                brake: 0,
-                speed: 0,
-                totalCurrent: 9000,
-              },
-              {
-                accPedal: 0,
-                brake: 0,
-                speed: 0,
-                totalCurrent: 9000,
-              },
-              {
-                accPedal: 0,
-                brake: 0,
-                speed: 0,
-                totalCurrent: 9000,
-              },
-              {
-                accPedal: 0,
-                brake: 0,
-                speed: 0,
-                totalCurrent: 9000,
-              },
-            ],
+            datas: [ten, ten, ten, ten, ten, ten, ten, ten, ten, ten],
           },
         ],
       },
