@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.8.1"></a>
+## [0.8.1](https://github.com/36node/32960/compare/v0.8.0...v0.8.1) (2019-04-16)
+
+
+### Bug Fixes
+
+* adas parser change, close [#34](https://github.com/36node/32960/issues/34) ([8c423be](https://github.com/36node/32960/commit/8c423be))
+* test, close [#34](https://github.com/36node/32960/issues/34) ([258bbf2](https://github.com/36node/32960/commit/258bbf2))
+
+
+
 <a name="0.8.0"></a>
 # [0.8.0](https://github.com/36node/32960/compare/v0.7.6...v0.8.0) (2019-03-27)
 
