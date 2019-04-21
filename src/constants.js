@@ -65,33 +65,33 @@ export const COMMAND = {
 
 // 应答标志
 export const FLAG = {
-  SUCCESS: "SUCCESS",
-  FAIL: "FAIL",
-  VIN_DUP: "VIN_DUP",
-  COMMAND: "COMMAND",
+  SUCCESS: "SUCCESS", // 成功
+  FAIL: "FAIL", // 错误
+  VIN_DUP: "VIN_DUP", // vin 重复
+  COMMAND: "COMMAND", // 命令
 };
 
 // 加密标志
 export const ENCRYPT = {
-  NONE: "NONE",
+  NONE: "NONE", // 未加密
   RSA: "RSA",
   AES128: "AES128",
 };
 
 // 信息体
 export const REPORT = {
-  VEHICLE: "VEHICLE",
-  MOTOR: "MOTOR",
-  FUELCELL: "FUELCELL",
-  ENGINE: "ENGINE",
-  LOCATION: "LOCATION",
-  EXTREME: "EXTREME",
-  ALARM: "ALARM",
-  RESS_VOLTAGE: "RESS_VOLTAGE",
-  RESS_TEMPERATURE: "RESS_TEMPERATURE",
-  CUSTOM_EXT: "CUSTOM_EXT",
-  TEN_SECONDS: "TEN_SECONDS",
-  ADAS: "ADAS",
+  VEHICLE: "VEHICLE", // 整车数据
+  MOTOR: "MOTOR", // 电机数据
+  FUELCELL: "FUELCELL", // 燃料电池数据
+  ENGINE: "ENGINE", // 发动机数据
+  LOCATION: "LOCATION", // 位置数据
+  EXTREME: "EXTREME", // 极值数据
+  ALARM: "ALARM", // 报警数据
+  RESS_VOLTAGE: "RESS_VOLTAGE", // 可充电储能装置电压数据
+  RESS_TEMPERATURE: "RESS_TEMPERATURE", // 可充电储能装置温度数据
+  CUSTOM_EXT: "CUSTOM_EXT", // 上海巴士自定义扩展数据
+  TEN_SECONDS: "TEN_SECONDS", // 十秒上传数据
+  ADAS: "ADAS", // ADAS 数据
 };
 
 export const CMCS_STATUS = { NORMAL: "NORMAL", CLOSE: "CLOSE", ABNORMAL: "ABNORMAL" };
